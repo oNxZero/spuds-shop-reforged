@@ -128,6 +128,10 @@ public abstract class AbstractShopBlock extends Block implements EntityBlock {
 
     @Override
     public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+        if (player.isShiftKeyDown() && level.getBlockEntity(pos) instanceof AbstractShopEntity shop
+                && shop.quickUserSignIn(player) == PermissionLevel.CUSTOMER) {
+            return 0.0F;
+        }
         return state.getValue(BREAKABLE)
                 ? super.getDestroyProgress(state, player, level, pos)
                 : 0.0F;

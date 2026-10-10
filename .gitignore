@@ -23,7 +23,7 @@ eclipse
 run
 runs
 logs/
-config/
+/config/
 crash-reports/
 .env
 .env.*

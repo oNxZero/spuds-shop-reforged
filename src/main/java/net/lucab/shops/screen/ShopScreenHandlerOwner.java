@@ -760,8 +760,18 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
     }
 
     public static boolean canUseInTrade(ItemStack stack, ItemStack otherStack) {
-        return ItemStack.isSameItemSameComponents(stack, otherStack);
-
+        if (ItemStack.isSameItemSameComponents(stack, otherStack)) {
+            return true;
+        }
+        if (!ItemStack.isSameItem(stack, otherStack) || stack.isEmpty() || otherStack.isEmpty()) {
+            return false;
+        }
+        // Compare copies so templates and real stock retain their original durability.
+        ItemStack first = stack.copy();
+        ItemStack second = otherStack.copy();
+        first.remove(net.minecraft.core.component.DataComponents.DAMAGE);
+        second.remove(net.minecraft.core.component.DataComponents.DAMAGE);
+        return ItemStack.isSameItemSameComponents(first, second);
     }
 
     @Override

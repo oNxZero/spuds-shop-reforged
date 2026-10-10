@@ -26,6 +26,8 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
@@ -59,6 +61,54 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class AbstractShopEntity extends BlockEntity {
+
+    private long lastPurchaseParticleTick = Long.MIN_VALUE;
+
+    private void playPurchaseEffects(Player player) {
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        if (ConfigHandler.effectEnabled("PurchaseSounds")) {
+            var id = net.minecraft.resources.ResourceLocation.tryParse(
+                    ConfigHandler.effectId("PurchaseSound", "minecraft:entity.item.pickup"));
+            var sound = id == null ? null : net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(id);
+            ((ServerPlayer) player).playNotifySound(sound == null ? SoundEvents.ITEM_PICKUP : sound,
+                    SoundSource.MASTER, (float) ConfigHandler.effectNumber("PurchaseVolume", 0.45, 0, 2),
+                    (float) ConfigHandler.effectNumber("PurchasePitch", 0.8, 0.5, 2));
+        }
+        long now = serverLevel.getGameTime();
+        // Every successful trade gets a sound; only particles are throttled.
+        if (lastPurchaseParticleTick != Long.MIN_VALUE && now - lastPurchaseParticleTick < 4) {
+            return;
+        }
+        lastPurchaseParticleTick = now;
+        int count = (int) ConfigHandler.effectNumber("PurchaseParticleCount", 6, 0, 64);
+        if (ConfigHandler.effectEnabled("PurchaseParticles") && count > 0) {
+            var id = net.minecraft.resources.ResourceLocation.tryParse(
+                    ConfigHandler.effectId("PurchaseParticle", "minecraft:happy_villager"));
+            var type = id == null ? null : net.minecraft.core.registries.BuiltInRegistries.PARTICLE_TYPE.get(id);
+            var particle = type instanceof net.minecraft.core.particles.SimpleParticleType simple
+                    ? simple : ParticleTypes.HAPPY_VILLAGER;
+            serverLevel.sendParticles(particle,
+                    worldPosition.getX() + 0.5, worldPosition.getY() + 0.9,
+                    worldPosition.getZ() + 0.5,
+                    count, 0.3, 0.2, 0.3, 0.0);
+        }
+    }
+
+    private void playFailureSound(Player player, String prefix, String defaultId,
+            net.minecraft.sounds.SoundEvent fallback, double pitch) {
+        if (!(player instanceof ServerPlayer buyer) || !ConfigHandler.effectEnabled(prefix + "Sounds")) {
+            return;
+        }
+        var id = net.minecraft.resources.ResourceLocation.tryParse(
+                ConfigHandler.effectId(prefix + "Sound", defaultId));
+        var sound = id == null ? null : net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(id);
+        // GUI feedback is local to the buyer, independent of block-sound volume and distance.
+        buyer.playNotifySound(sound == null ? fallback : sound, SoundSource.MASTER,
+                (float) ConfigHandler.effectNumber(prefix + "Volume", 0.5, 0, 2),
+                (float) ConfigHandler.effectNumber(prefix + "Pitch", pitch, 0.5, 2));
+    }
 
     // region INVENTORY
 
@@ -182,34 +232,45 @@ public abstract class AbstractShopEntity extends BlockEntity {
 
             Player player = playerInv.player;
             ItemScatterer(player.level(), player.getOnPos(), vendList);
+            playPurchaseEffects(player);
 
         }
 
         public boolean canTrade(Player playerEntity) {
-            if (!stillValid(playerEntity) || inventory.tradeNonFunctional()) {
+            if (!stillValid(playerEntity) || level.isClientSide()) {
+                return false;
+            }
+            if (inventory.tradeNonFunctional()) {
+                errorMessage("Shop has no trade configured", playerEntity);
+                playFailureSound(playerEntity, "OutOfStock", "minecraft:block.dispenser.fail",
+                        SoundEvents.DISPENSER_FAIL, 0.9);
                 return false;
             }
             if (!toggleSettings.getOrDefault(ToggleButtonID.CreativeToggle, false)) {
                 if (inventory.outOfStock()) {
                     errorMessage("Shop is out of stock", playerEntity);
+                    playFailureSound(playerEntity, "OutOfStock", "minecraft:block.dispenser.fail",
+                            SoundEvents.DISPENSER_FAIL, 0.9);
                     return false;
                 }
                 if (inventory.paymentRegisterFull()) {
                     errorMessage("Shop cannot store any more currency", playerEntity);
+                    playFailureSound(playerEntity, "RegisterFull", "minecraft:block.dispenser.fail",
+                            SoundEvents.DISPENSER_FAIL, 0.65);
                     return false;
                 }
             }
             if (inventory.isPlayerPoor(playerEntity)) {
                 errorMessage("You do not have enough currency", playerEntity);
+                playFailureSound(playerEntity, "InsufficientCurrency", "minecraft:entity.villager.no",
+                        SoundEvents.VILLAGER_NO, 1.2);
                 return false;
             }
             return true;
         }
 
         private void errorMessage(String message, Player player) {
-            if (player.level().isClientSide()) {
-                player.displayClientMessage(Component.literal(message), true);
-            }
+            player.displayClientMessage(Component.literal(message), true);
         }
 
         @Override

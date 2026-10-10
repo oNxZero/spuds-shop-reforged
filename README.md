@@ -15,6 +15,8 @@ Spuds Shop Reforged is a community fork of **[Spud's Shops](https://modrinth.com
 - Keep stock and collected payments in the shop.
 - Assign staff permissions through signed contracts.
 - Configure creative shops and visual effects.
+- As a customer, sneak (Shift) and left-click a shop to buy one configured trade without opening its GUI. Aim at the upper or lower shelf to select its offer. Owners and staff keep their normal controls.
+- Every successful purchase plays a soft item-pickup sound, with a small green particle burst at the shop. Bulk purchases throttle only particles. Failed purchases give the buyer distinct feedback for empty stock, insufficient currency, and a full register. Purchase sounds are sent directly to the buyer, including while the GUI is open.
 
 Trade configuration uses **ghost items**: setting a price or product does not consume the item in your cursor. Actual purchases consume real payment and stock.
 
@@ -32,9 +34,9 @@ Trade configuration uses **ghost items**: setting a price or product does not co
 | Contracts | Avoids a server-side exception when clicking your own contract to open the removal warning. |
 | Branding | Uses Spuds Shop Reforged in mod metadata, creative tabs, resource-pack metadata, build output, and the config filename. |
 
-**Validation:** the build and trade-extraction regression checks pass. Mouse Tweaks visual behavior and combined mod interactions still need in-game verification. These fixes are not a claim that every possible exploit has been eliminated.
+**Validation:** the build and regression checks pass, including exact extraction, repeated-purchase stock conservation, register capacity, and durability matching. Quick-buy mouse behavior, sound feedback, Mouse Tweaks visual behavior, and combined mod interactions still need in-game verification. These fixes are not a claim that every possible exploit has been eliminated.
 
-Selectable trades and an ignore-item-data mode are not implemented in this fork. Shops use fixed item-and-quantity trades with exact item-component matching.
+Selectable trades and an ignore-item-data mode are not implemented in this fork. Shops use fixed item-and-quantity trades. Trade matching ignores durability damage, while names, enchantments, and other item components must still match. Purchased items retain the durability of the actual stock.
 
 ## Installation
 
@@ -55,11 +57,34 @@ config/spuds_shop_reforged.toml
 
 If `config/spudaciousshops.toml` exists and the new file does not, Reforged copies the old settings automatically. It leaves the old file intact and never overwrites an existing Reforged config.
 
-The current file setting is:
+Purchase effects can be adjusted independently of the shop’s existing idle effects. Restart the game/server after editing. Sound and particle IDs use Minecraft registry names; particles must be simple types without extra data (such as `happy_villager`, `heart`, or `end_rod`). Invalid IDs fall back to the defaults.
+
+The file settings are:
 
 ```toml
 ToggleEffectsDefault = true
+PurchaseSounds = true
+PurchaseSound = "minecraft:entity.item.pickup"
+PurchaseVolume = 0.45
+PurchasePitch = 0.8
+PurchaseParticles = true
+PurchaseParticle = "minecraft:happy_villager"
+PurchaseParticleCount = 6
+OutOfStockSounds = true
+OutOfStockSound = "minecraft:block.dispenser.fail"
+OutOfStockVolume = 0.35
+OutOfStockPitch = 0.9
+InsufficientCurrencySounds = true
+InsufficientCurrencySound = "minecraft:entity.villager.no"
+InsufficientCurrencyVolume = 0.5
+InsufficientCurrencyPitch = 1.2
+RegisterFullSounds = true
+RegisterFullSound = "minecraft:block.dispenser.fail"
+RegisterFullVolume = 0.5
+RegisterFullPitch = 0.65
 ```
+
+Volume is clamped to 0–2, pitch to 0.5–2, and particle count to 0–64 per burst. Set particle count to 0 or disable either effect to turn it off. Only particles have a short cooldown during bulk purchases; purchase sounds play for every successful trade. Failure sound settings are independent of purchase sounds. All trade sounds use the buyer’s master sound channel, so GUI feedback is unaffected by distance or the Blocks volume slider.
 
 Other shop options are configured through the shop GUI.
 

@@ -86,6 +86,51 @@ public class SpudaciousShops {
         LOGGER.info("HELLO from server starting");
     }
 
+    private final java.util.Map<net.minecraft.world.entity.player.Player, Integer> lastQuickBuy =
+            new java.util.WeakHashMap<>();
+
+    @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
+    public void onQuickBuy(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.LeftClickBlock event) {
+        var player = event.getEntity();
+        if (!player.isShiftKeyDown() || player.isSpectator()
+                || !(event.getLevel().getBlockEntity(event.getPos()) instanceof
+                net.lucab.shops.block.entity.AbstractShopEntity shop)
+                || shop.quickUserSignIn(player) != net.lucab.shops.properties.PermissionLevel.CUSTOMER) {
+            return;
+        }
+        // Cancel mining on both sides; the normal START packet still reaches the server.
+        event.setCanceled(true);
+        if (event.getLevel().isClientSide()
+                && event.getAction() == net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.LeftClickBlock.Action.START) {
+            // Track the held mouse button locally so it cannot send repeated START purchases.
+            event.setUseItem(net.neoforged.neoforge.common.util.TriState.DEFAULT);
+        }
+        if (event.getLevel().isClientSide()
+                || event.getAction() != net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.LeftClickBlock.Action.START
+                || !player.canInteractWithBlock(event.getPos(), 0)
+                || !event.getLevel().mayInteract(player, event.getPos())) {
+            return;
+        }
+        var hit = player.pick(player.blockInteractionRange(), 1, false);
+        if (!(hit instanceof net.minecraft.world.phys.BlockHitResult blockHit)
+                || hit.getType() != net.minecraft.world.phys.HitResult.Type.BLOCK
+                || !blockHit.getBlockPos().equals(event.getPos())) return;
+        Integer previous = lastQuickBuy.get(player);
+        if (previous != null && player.tickCount - previous < 5) return;
+        lastQuickBuy.put(player, player.tickCount);
+        boolean top = false;
+        var state = shop.getBlockState();
+        if (state.hasProperty(net.lucab.shops.block.custom.ShelfShopBlock.SHELVES_ENABLED)) {
+            var shelves = state.getValue(net.lucab.shops.block.custom.ShelfShopBlock.SHELVES_ENABLED);
+            top = shelves == net.minecraft.world.level.block.state.properties.SlabType.TOP
+                    || (shelves == net.minecraft.world.level.block.state.properties.SlabType.DOUBLE
+                    && blockHit.getLocation().y - event.getPos().getY() > 0.5);
+        }
+        var inventory = top ? shop.getOtherInventoryDelegate(player) : shop.getInventoryDelegate(player);
+        if (inventory != null) inventory.trade(player.getInventory());
+        player.containerMenu.broadcastChanges();
+    }
+
     public static ResourceLocation getResource(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
