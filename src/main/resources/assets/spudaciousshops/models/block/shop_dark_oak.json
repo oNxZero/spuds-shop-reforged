@@ -1,7 +1,9 @@
 {
   "parent": "spudaciousshops:block/shop",
   "textures": {
-    "4": "spudaciousshops:block/angled_shop/dark_oak_angled",
-    "particle": "minecraft:block/dark_oak_planks"
+    "particle": "minecraft:block/dark_oak_planks",
+    "planks": "minecraft:block/dark_oak_planks",
+    "log": "minecraft:block/stripped_dark_oak_log",
+    "log_end": "minecraft:block/stripped_dark_oak_log_top"
   }
 }

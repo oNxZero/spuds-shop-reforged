@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "spudaciousshops:block/crate_shop_bamboo"
+    },
+    "facing=east": {
+      "model": "spudaciousshops:block/crate_shop_bamboo",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "spudaciousshops:block/crate_shop_bamboo",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "spudaciousshops:block/crate_shop_bamboo",
+      "y": 270
+    }
+  }
+}

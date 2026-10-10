@@ -1,7 +1,9 @@
 {
   "parent": "spudaciousshops:block/shelf/shelf_shop_top",
   "textures": {
-    "all": "spudaciousshops:block/shelf/shelf_warped",
+    "planks": "minecraft:block/warped_planks",
+    "log": "minecraft:block/stripped_warped_stem",
+    "log_end": "minecraft:block/stripped_warped_stem_top",
     "particle": "minecraft:block/warped_planks"
   }
 }

@@ -347,6 +347,11 @@ public abstract class AbstractShopEntity extends BlockEntity {
             return inventory.getPaymentType();
         }
 
+        public int getAvailableStock() {
+            return toggleSettings.getOrDefault(ToggleButtonID.CreativeToggle, false)
+                    && !inventory.tradeNonFunctional() ? -1 : inventory.availableStock();
+        }
+
         public int getPrice() {
             return inventory.getPrice();
         }

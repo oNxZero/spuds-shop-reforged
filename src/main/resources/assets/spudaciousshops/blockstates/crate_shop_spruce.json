@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "spudaciousshops:block/crate_shop_spruce"
+    },
+    "facing=east": {
+      "model": "spudaciousshops:block/crate_shop_spruce",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "spudaciousshops:block/crate_shop_spruce",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "spudaciousshops:block/crate_shop_spruce",
+      "y": 270
+    }
+  }
+}

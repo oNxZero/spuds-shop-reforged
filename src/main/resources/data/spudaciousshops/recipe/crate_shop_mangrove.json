@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "PPP",
+    "FBF",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:mangrove_planks"
+    },
+    "F": {
+      "item": "minecraft:mangrove_fence"
+    },
+    "B": {
+      "item": "minecraft:barrel"
+    }
+  },
+  "result": {
+    "id": "spudaciousshops:crate_shop_mangrove",
+    "count": 1
+  }
+}

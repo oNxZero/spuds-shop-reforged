@@ -149,14 +149,14 @@ public class AngledShopBlockRenderer implements BlockEntityRenderer<AngledShopEn
 
             font.drawInBatch(
                     data.stockQuantity,
-                    data.qWidth(),
-                    -4f,
+                    data.qWidth() + 2f,
+                    -5.5f,
                     0xffff00,
                     false,
                     poseStack.last().pose(),
                     bufferSource,
                     Font.DisplayMode.NORMAL,
-                    0xffffff,
+                    0,
                     light);
             poseStack.popPose();
 

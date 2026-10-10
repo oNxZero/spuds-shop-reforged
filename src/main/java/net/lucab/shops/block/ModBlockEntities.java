@@ -50,7 +50,8 @@ public class ModBlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CrateShopEntity>> CRATE_SHOP_ENTITY = BLOCK_ENTITIES
             .register("shop_b_e_crate",
                     () -> BlockEntityType.Builder.of(CrateShopEntity::new,
-                            ModBlocks.SHOP_BLOCK_CRATE.get()).build(null));
+                            ModBlocks.ALL_CRATE_SHOPS.stream().map(DeferredHolder::get)
+                                    .toArray(net.lucab.shops.block.custom.CrateShopBlock[]::new)).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ShelfShopEntity>> SHELF_SHOP_ENTITY = BLOCK_ENTITIES
             .register("shop_b_e_shelf",

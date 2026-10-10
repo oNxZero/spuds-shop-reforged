@@ -1,0 +1,7 @@
+{
+  "parent": "spudaciousshops:block/rug_shop/connected_0",
+  "textures": {
+    "all": "spudaciousshops:block/rug/light_gray",
+    "particle": "#all"
+  }
+}

@@ -1,7 +1,9 @@
 {
   "parent": "spudaciousshops:block/shelf/shelf_shop",
   "textures": {
-    "all": "spudaciousshops:block/shelf/shelf_birch",
+    "planks": "minecraft:block/birch_planks",
+    "log": "minecraft:block/stripped_birch_log",
+    "log_end": "minecraft:block/stripped_birch_log_top",
     "particle": "minecraft:block/birch_planks"
   }
 }

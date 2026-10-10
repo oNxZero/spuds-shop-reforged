@@ -1,7 +1,9 @@
 {
   "parent": "spudaciousshops:block/shop",
   "textures": {
-    "4": "spudaciousshops:block/angled_shop/acacia_angled",
-    "particle": "minecraft:block/acacia_planks"
+    "particle": "minecraft:block/acacia_planks",
+    "planks": "minecraft:block/acacia_planks",
+    "log": "minecraft:block/stripped_acacia_log",
+    "log_end": "minecraft:block/stripped_acacia_log_top"
   }
 }

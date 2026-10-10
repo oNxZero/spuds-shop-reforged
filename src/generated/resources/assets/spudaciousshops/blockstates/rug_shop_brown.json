@@ -1,41 +1,52 @@
 {
-  "multipart": [
-    {
-      "apply": {
-        "model": "spudaciousshops:block/rug_shop_brown_main"
-      }
+  "variants": {
+    "north=false,east=false,south=false,west=false": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_0"
     },
-    {
-      "apply": {
-        "model": "spudaciousshops:block/rug_shop_brown_east"
-      },
-      "when": {
-        "east": "true"
-      }
+    "north=true,east=false,south=false,west=false": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_1"
     },
-    {
-      "apply": {
-        "model": "spudaciousshops:block/rug_shop_brown_north"
-      },
-      "when": {
-        "north": "true"
-      }
+    "north=false,east=true,south=false,west=false": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_2"
     },
-    {
-      "apply": {
-        "model": "spudaciousshops:block/rug_shop_brown_south"
-      },
-      "when": {
-        "south": "true"
-      }
+    "north=true,east=true,south=false,west=false": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_3"
     },
-    {
-      "apply": {
-        "model": "spudaciousshops:block/rug_shop_brown_west"
-      },
-      "when": {
-        "west": "true"
-      }
+    "north=false,east=false,south=true,west=false": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_4"
+    },
+    "north=true,east=false,south=true,west=false": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_5"
+    },
+    "north=false,east=true,south=true,west=false": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_6"
+    },
+    "north=true,east=true,south=true,west=false": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_7"
+    },
+    "north=false,east=false,south=false,west=true": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_8"
+    },
+    "north=true,east=false,south=false,west=true": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_9"
+    },
+    "north=false,east=true,south=false,west=true": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_10"
+    },
+    "north=true,east=true,south=false,west=true": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_11"
+    },
+    "north=false,east=false,south=true,west=true": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_12"
+    },
+    "north=true,east=false,south=true,west=true": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_13"
+    },
+    "north=false,east=true,south=true,west=true": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_14"
+    },
+    "north=true,east=true,south=true,west=true": {
+      "model": "spudaciousshops:block/rug_shop_brown_connected_15"
     }
-  ]
+  }
 }

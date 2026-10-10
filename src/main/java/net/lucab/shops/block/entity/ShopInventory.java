@@ -32,6 +32,16 @@ public class ShopInventory extends NonNullList<ItemStack> {
         return new ShopInventory(stacks);
     }
 
+    public int availableStock() {
+        int count = 0;
+        ItemStack product = get(VENDING_SLOT);
+        if (product.isEmpty()) return 0;
+        for (int slot = 0; slot <= STOCK_END; slot++) {
+            if (canUseInTrade(product, get(slot))) count += get(slot).getCount();
+        }
+        return count;
+    }
+
     boolean outOfStock(){
         int stock = 0;
         ItemStack vend = get(VENDING_SLOT);

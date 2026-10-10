@@ -1,0 +1,7 @@
+{
+  "parent": "spudaciousshops:block/rug_shop/connected_7",
+  "textures": {
+    "all": "spudaciousshops:block/rug/cyan",
+    "particle": "#all"
+  }
+}

@@ -71,7 +71,31 @@ public class ShopScreenHandlerCustomer extends AbstractContainerMenu {
         finishSetup();
     }
 
+    private int availableStock;
+
+    public int getAvailableStock() {
+        return availableStock;
+    }
+
+    private void syncStockDisplay() {
+        addDataSlot(new net.minecraft.world.inventory.DataSlot() {
+            @Override
+            public int get() {
+                if (!playerInventory.player.level().isClientSide()) {
+                    availableStock = shopInventory.getAvailableStock();
+                }
+                return availableStock;
+            }
+
+            @Override
+            public void set(int value) {
+                availableStock = value;
+            }
+        });
+    }
+
     private void finishSetup() {
+        syncStockDisplay();
 
         playerInventory.startOpen(playerInventory.player);
 

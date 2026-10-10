@@ -34,8 +34,13 @@ public class ShopScreenCustomer extends AbstractContainerScreen<ShopScreenHandle
 
     @Override
     protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        // Do nothing — this prevents the title and inventory label from rendering
-        // TODO perhaps implement this in fabric
+        drawStockLabel(guiGraphics, menu.getAvailableStock(), 123, 60);
+    }
+
+    private void drawStockLabel(GuiGraphics graphics, int stock, int centerX, int y) {
+        Component text = Component.translatable("gui.spudaciousshops.stock", stock < 0 ? "∞" : stock);
+        graphics.drawString(font, text, centerX - font.width(text) / 2, y,
+                stock == 0 ? 0x8B2820 : 0x3F2C13, false);
     }
 
     @Override

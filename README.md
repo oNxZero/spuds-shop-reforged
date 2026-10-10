@@ -1,5 +1,9 @@
 # Spuds Shop Reforged
 
+<p align="center">
+  <img src="docs/assets/spuds-shop-reforged-logo.png" alt="Spuds Shop Reforged logo" width="420">
+</p>
+
 Decorative player shops for **Minecraft 1.21.1 • NeoForge**, with fixes for item duplication, trade accounting, and inventory interactions.
 
 ![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-62B47A)
@@ -10,9 +14,14 @@ Spuds Shop Reforged is a community fork of **[Spud's Shops](https://modrinth.com
 
 ## What you can do
 
-- Build decorative shops using crates, shelves, hooks, rugs, and window sills.
+- Build decorative shops using crates, shelves, hooks, rugs, and window sills. Shelves have a compact hanging price tag on the front edge for each offer (price, then payment item).
 - Configure a fixed payment and product quantity for each shop inventory.
+- Choose from eleven wood variants for crates, shelves, and normal wooden shops. Existing legacy crates remain compatible.
+- Wooden model surfaces use vanilla planks and stripped logs, so resource packs change them naturally.
+- Crates have closed trays and timber stands with horizontal grain on rails and crossbeams.
+- Adjacent rugs use non-overlapping connection geometry to prevent seam flicker.
 - Keep stock and collected payments in the shop.
+- See remaining matching stock beneath the product in the buying GUI, updated live. Creative shops show unlimited stock (`∞`).
 - Assign staff permissions through signed contracts.
 - Configure creative shops and visual effects.
 - As a customer, sneak (Shift) and left-click a shop to buy one configured trade without opening its GUI. Aim at the upper or lower shelf to select its offer. Owners and staff keep their normal controls.
@@ -105,6 +114,15 @@ Output:
 ```text
 build/libs/Spuds Shop Reforged-1.9.11.jar
 ```
+
+Wood and rug model assets can be regenerated and checked with Python 3:
+
+```bash
+python3 tools/generate_shop_models.py
+python3 tools/check_shop_models.py
+```
+
+The model checks cover all rug connections, crate support penetration, horizontal beam grain, and variant resources. New wood crates are crafted with six matching planks, two matching fences, and a barrel (`PPP / FBF / PPP`). The original three-barrel crate recipe still works.
 
 `build` runs the trade-extraction regressions. To run them separately:
 

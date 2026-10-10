@@ -51,11 +51,14 @@ public final class TradeExtractionRegression {
         ShopInventory shop = ShopInventory.create();
         shop.set(ShopInventory.VENDING_SLOT, template.copy());
         shop.set(0, worn);
+        shop.set(1, named);
+        require(shop.availableStock() == 1, "display must count worn stock but exclude nonmatching names");
         require(!shop.outOfStock(), "stock validation must ignore durability");
         var extracted = AbstractShopEntity.InventoryDelegate.takeItems(template, shop::get, 0, ShopInventory.STOCK_END);
         require(extracted.size() == 1 && extracted.getFirst().getDamageValue() == 150,
                 "purchases must deliver actual stock durability");
         require(shop.get(0).isEmpty() && shop.outOfStock(), "stock must be consumed exactly once");
+        require(shop.availableStock() == 0, "display must update after stock extraction");
         require(template.getDamageValue() == 20, "matching must not modify template durability");
     }
 
@@ -65,6 +68,7 @@ public final class TradeExtractionRegression {
         shop.set(ShopInventory.PAYMENT_SLOT, new ItemStack(Items.EMERALD, 2));
         shop.set(0, new ItemStack(Items.DIAMOND, 4));
         shop.set(1, new ItemStack(Items.DIAMOND, 3));
+        require(shop.availableStock() == 7, "stock display must count items across stacks");
         int delivered = 0;
         while (!shop.outOfStock()) {
             var result = AbstractShopEntity.InventoryDelegate.takeItems(
@@ -75,6 +79,7 @@ public final class TradeExtractionRegression {
         }
         require(delivered == 6 && shop.get(1).getCount() == 1,
                 "repeated purchases must stop before consuming partial stock");
+        require(shop.availableStock() == 1, "stock display must retain partial trade leftovers");
         for (int slot = ShopInventory.STOCK_END + 1; slot <= ShopInventory.PROFIT_END; slot++) {
             shop.set(slot, new ItemStack(Items.EMERALD, 64));
         }

@@ -54,6 +54,8 @@ public class ModBlocks {
 
     public static final List<DeferredHolder<Block, RugShopBlock>> ALL_RUG_SHOPS = new ArrayList<>(11);
 
+    public static final List<DeferredHolder<Block, CrateShopBlock>> ALL_CRATE_SHOPS = new ArrayList<>(12);
+
     // region ANGLED
     public static final DeferredHolder<Block, AngledShopBlock> SHOP_BLOCK_ANGLED_ACACIA = registerAngledShopBlock(
             ACACIA, () -> Items.ACACIA_PLANKS);
@@ -174,8 +176,20 @@ public class ModBlocks {
     }
     // endregion
 
-    public static final DeferredHolder<Block, CrateShopBlock> SHOP_BLOCK_CRATE = registerBasic("crate_shop",
-            () -> new CrateShopBlock(settingsWood));
+    // Keep the original spruce crate ID valid in existing worlds.
+    public static final DeferredHolder<Block, CrateShopBlock> SHOP_BLOCK_CRATE = registerCrate("crate_shop", SPRUCE);
+
+    static {
+        for (wood_variant variant : wood_variant.values()) {
+            registerCrate("crate_shop_" + variant.name, variant);
+        }
+    }
+
+    private static DeferredHolder<Block, CrateShopBlock> registerCrate(String name, wood_variant variant) {
+        var crate = registerBasic(name, () -> new CrateShopBlock(settingsWood, variant));
+        ALL_CRATE_SHOPS.add(crate);
+        return crate;
+    }
 
     // region SHELF
     public static final DeferredHolder<Block, ShelfShopBlock> SHOP_BLOCK_SHELF_ACACIA = registerShelf(ACACIA,

@@ -1,0 +1,9 @@
+{
+  "parent": "spudaciousshops:block/traders_crate",
+  "textures": {
+    "planks": "minecraft:block/warped_planks",
+    "log": "minecraft:block/stripped_warped_stem",
+    "log_end": "minecraft:block/stripped_warped_stem_top",
+    "particle": "minecraft:block/warped_planks"
+  }
+}

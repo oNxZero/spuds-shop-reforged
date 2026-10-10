@@ -1,6 +1,7 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
+issueTrackerURL="https://github.com/oNxZero/spuds-shop-reforged/issues"
 
 [[mods]]
 modId="${mod_id}"
@@ -8,7 +9,8 @@ version="${mod_version}"
 displayName="${mod_name}"
 authors="${mod_authors}"
 description="${mod_description}"
-logoFile="shops_logo.png"
+logoFile="spuds_shop_reforged_logo.png"
+displayURL="https://github.com/oNxZero/spuds-shop-reforged"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"

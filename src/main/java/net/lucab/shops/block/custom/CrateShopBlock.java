@@ -28,27 +28,55 @@ public class CrateShopBlock extends AbstractShopBlock {
 
     public static final VoxelShape CULLING_SHAPE = createCuboidShape(0, -1.0, -1.0, 16.0, 2.0, 17.0);
 
-    public static final VoxelShape SHAPE_NORTH = Shapes.or(
+    public static final VoxelShape SHAPE_NORTH = withStand(Shapes.or(
             createCuboidShape(1.0, 0.0, 0.0, 15.0, 8.0, 8.0),
             createCuboidShape(1.0, 4.0, 4.0, 15.0, 12.0, 12.0),
-            createCuboidShape(1.0, 8.0, 8.0, 15.0, 16.0, 16.0));
-    public static final VoxelShape SHAPE_WEST = Shapes.or(
+            createCuboidShape(1.0, 8.0, 8.0, 15.0, 16.0, 16.0)), 0);
+    public static final VoxelShape SHAPE_WEST = withStand(Shapes.or(
             createCuboidShape(0.0, 0.0, 1.0, 8.0, 8.0, 15.0),
             createCuboidShape(4.0, 4.0, 1.0, 12.0, 12.0, 15.0),
-            createCuboidShape(8.0, 8.0, 1.0, 16.0, 16.0, 15.0));
-    public static final VoxelShape SHAPE_SOUTH = Shapes.or(
+            createCuboidShape(8.0, 8.0, 1.0, 16.0, 16.0, 15.0)), 1);
+    public static final VoxelShape SHAPE_SOUTH = withStand(Shapes.or(
             createCuboidShape(1.0, 0.0, 8.0, 15.0, 8.0, 16.0),
             createCuboidShape(1.0, 4.0, 4.0, 15.0, 12.0, 12.0),
-            createCuboidShape(1.0, 8.0, 0.0, 15.0, 16.0, 8.0));
-    public static final VoxelShape SHAPE_EAST = Shapes.or(
+            createCuboidShape(1.0, 8.0, 0.0, 15.0, 16.0, 8.0)), 2);
+    public static final VoxelShape SHAPE_EAST = withStand(Shapes.or(
             createCuboidShape(8.0, 0.0, 1.0, 16.0, 8.0, 15.0),
             createCuboidShape(4.0, 4.0, 1.0, 12.0, 12.0, 15.0),
-            createCuboidShape(0.0, 8.0, 1.0, 8.0, 16.0, 15.0));
+            createCuboidShape(0.0, 8.0, 1.0, 8.0, 16.0, 15.0)), 3);
 
-    public static final MapCodec<CrateShopBlock> CODEC = simpleCodec(CrateShopBlock::new);
+    private static VoxelShape withStand(VoxelShape crate, int turns) {
+        double[][] supports = {
+                {0.75, 0, 6.75, 2, 1.25, 14}, {14, 0, 6.75, 15.25, 1.25, 14},
+                {0.75, 1.25, 12, 2, 6.75, 14}, {14, 1.25, 12, 15.25, 6.75, 14},
+                {2, 0.25, 12, 14, 1.5, 14}
+        };
+        for (double[] box : supports) {
+            double x1 = box[0], z1 = box[2], x2 = box[3], z2 = box[5];
+            for (int turn = 0; turn < turns; turn++) {
+                double nextX1 = z1, nextX2 = z2;
+                z1 = 16 - x2;
+                z2 = 16 - x1;
+                x1 = nextX1;
+                x2 = nextX2;
+            }
+            crate = Shapes.or(crate, createCuboidShape(x1, box[1], z1, x2, box[4], z2));
+        }
+        return crate;
+    }
 
-    public CrateShopBlock(BlockBehaviour.Properties properties) {
+    public static final MapCodec<CrateShopBlock> CODEC =
+            com.mojang.serialization.codecs.RecordCodecBuilder.mapCodec(instance -> instance.group(
+                    propertiesCodec(),
+                    VariantResources.wood_variant.CODEC.optionalFieldOf("variant", VariantResources.wood_variant.SPRUCE)
+                            .forGetter(block -> block.variant))
+                    .apply(instance, CrateShopBlock::new));
+
+    public final VariantResources.wood_variant variant;
+
+    public CrateShopBlock(BlockBehaviour.Properties properties, VariantResources.wood_variant variant) {
         super(properties);
+        this.variant = variant;
     }
 
     @Override
@@ -58,7 +86,7 @@ public class CrateShopBlock extends AbstractShopBlock {
 
     @Override
     public ScreenSettingsGroup getScreenSettings() {
-        return ScreenSettingsGroup.createBasicWood(VariantResources.wood_variant.SPRUCE);
+        return ScreenSettingsGroup.createBasicWood(variant);
     }
 
     @Override
