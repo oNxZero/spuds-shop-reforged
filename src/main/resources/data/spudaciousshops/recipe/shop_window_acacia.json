@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "PPP",
+    " C "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:acacia_planks"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    }
+  },
+  "result": {
+    "id": "spudaciousshops:shop_window_acacia",
+    "count": 1
+  }
+}

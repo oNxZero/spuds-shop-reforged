@@ -1,3 +1,23 @@
 {
-  "parent": "spudaciousshops:block/shelf_shop_bamboo_top"
+  "parent": "spudaciousshops:block/shelf_shop_bamboo_top",
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        3.376476,
+        -3.470459,
+        0
+      ],
+      "scale": [
+        0.969555,
+        0.969555,
+        0.969555
+      ]
+    }
+  }
 }

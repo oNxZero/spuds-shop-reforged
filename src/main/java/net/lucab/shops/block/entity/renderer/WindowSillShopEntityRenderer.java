@@ -32,31 +32,27 @@ public class WindowSillShopEntityRenderer implements BlockEntityRenderer<WindowS
 
         if (data.shopFunctional()) {
 
-            // render item being sold
+            boolean block = data.stockDisplayType();
+            boolean equipment = data.displayItem().getMaxStackSize() == 1
+                    || data.displayItem().getItem() instanceof net.minecraft.world.item.TieredItem
+                    || data.displayItem().getItem() instanceof net.minecraft.world.item.ArmorItem;
+            float scale = block ? .4f : equipment ? .4f : .30f;
+            mode = block ? ItemDisplayContext.FIXED : ItemDisplayContext.GUI;
+            var model = context.getItemRenderer().getModel(data.displayItem(), shop.getLevel(), null, 0);
+            float y = .001f + ShopRenderUtils.restingOffset(model, mode, scale, !block);
             matrices.pushPose();
-            if (data.direction() == Direction.NORTH) {
-                matrices.translate(0.6f, 0.4f, 0.45f);
-            }
-            if (data.direction() == Direction.EAST) {
-                matrices.translate(0.55f, 0.4f, 0.6f);
-            }
-            if (data.direction() == Direction.SOUTH) {
-                matrices.translate(0.4f, 0.4f, 0.55f);
-            }
-            if (data.direction() == Direction.WEST) {
-                matrices.translate(0.45f, 0.4f, 0.4f);
-            }
-
-            matrices.mulPose(Axis.YP.rotationDegrees(data.rotation()));
-
-            if (data.stockDisplayType()) {
-                matrices.scale(0.5f, 0.5f, 0.5f);
-                mode = ItemDisplayContext.FIXED;
-            } else {
-                matrices.scale(0.8f, 0.8f, 0.8f);
-                matrices.mulPose(Axis.XP.rotationDegrees(-90f));
-                matrices.translate(0f, 0f, -0.3f);
-                mode = ItemDisplayContext.GUI;
+            matrices.translate(.5f, 0, .5f);
+            matrices.mulPose(Axis.YP.rotationDegrees(switch (data.direction()) {
+                case EAST -> 270f; case SOUTH -> 180f; case WEST -> 90f; default -> 0f;
+            }));
+            matrices.scale(.7f, .65f, 1f);
+            matrices.translate(0, 1f / 16f, -3.5f / 16f);
+            matrices.mulPose(Axis.XP.rotationDegrees(-45f));
+            matrices.translate(0, y, (float)(3.5 * Math.sqrt(2)) / 16f);
+            matrices.scale(scale, scale, scale);
+            if (!block) {
+                matrices.mulPose(Axis.XP.rotationDegrees(90f));
+                matrices.mulPose(Axis.YP.rotationDegrees(180f));
             }
 
             this.context.getItemRenderer().renderStatic(
@@ -70,99 +66,16 @@ public class WindowSillShopEntityRenderer implements BlockEntityRenderer<WindowS
                     0);
             matrices.popPose();
 
-            // render price (count of currency)
             matrices.pushPose();
-
-            matrices.translate(0.5f, 0.0f, 0.5f);
-            matrices.mulPose(Axis.YP.rotationDegrees(
-                    switch (data.direction()) {
-                        case EAST -> 270f;
-                        case SOUTH -> 180f;
-                        case WEST -> 90f;
-                        default -> 0f;
-                    }));
-            matrices.translate(-0.5f, 0.0f, -0.5f);
-
-            matrices.translate(0.30125f, 0.22f, 0.9167f);
-
-            matrices.mulPose(Axis.ZP.rotationDegrees(180.0f));
-            matrices.mulPose(Axis.XP.rotationDegrees(-22.5f));
-
-            matrices.scale(0.018f, 0.018f, 0.018f);
-
-            font.drawInBatch(
-                    data.text(),
-                    data.width(),
-                    -4f,
-                    0xffffff,
-                    false,
-                    matrices.last().pose(),
-                    vertexConsumers,
-                    Font.DisplayMode.NORMAL,
-                    0,
-                    light);
-            matrices.popPose();
-
-            // render amount being sold
-            matrices.pushPose();
-
-            matrices.translate(0.5f, 0.0f, 0.5f);
-            matrices.mulPose(Axis.YP.rotationDegrees(
-                    switch (data.direction()) {
-                        case EAST -> 270f;
-                        case SOUTH -> 180f;
-                        case WEST -> 90f;
-                        default -> 0f;
-                    }));
-            matrices.translate(-0.5f, 0.0f, -0.5f);
-
-            matrices.mulPose(Axis.ZP.rotationDegrees(180.0f));
-            matrices.mulPose(Axis.XP.rotationDegrees(-90f));
-
-            matrices.translate(-0.15f, -0.126f, -0.15f);
-
-            matrices.scale(0.025f, 0.025f, 0.025f);
-
-            font.drawInBatch(
-                    data.stockQuantity,
-                    data.qWidth(),
-                    -4f,
-                    0xffff00,
-                    false,
-                    matrices.last().pose(),
-                    vertexConsumers,
-                    Font.DisplayMode.NORMAL,
-                    0x000000,
-                    light);
-            matrices.popPose();
-
-            // render currency type
-            matrices.pushPose();
-
-            matrices.translate(0.5f, 0f, 0.5f);
-            matrices.mulPose(Axis.YP.rotationDegrees(
-                    switch (data.direction()) {
-                        case EAST -> 270f;
-                        case SOUTH -> 180f;
-                        case WEST -> 90f;
-                        default -> 0f;
-                    }));
-            matrices.translate(-0.5f, 0f, -0.5f);
-
-            matrices.translate(0.13125f, 0.22f, 0.9167f);
-
-            matrices.mulPose(Axis.ZP.rotationDegrees(180.0f));
-            matrices.mulPose(Axis.XP.rotationDegrees(157.5f));
-
-            matrices.scale(0.18f, 0.18f, 0.18f);
-
-            this.context.getItemRenderer().renderStatic(data.paymentItem(), ItemDisplayContext.GUI,
-                    light,
-                    overlay,
-                    matrices,
-                    vertexConsumers,
-                    null,
-                    0);
+            matrices.translate(.5f, 0, .5f);
+            matrices.mulPose(Axis.YP.rotationDegrees(switch (data.direction()) {
+                case EAST -> 270f; case SOUTH -> 180f; case WEST -> 90f; default -> 0f;
+            }));
+            matrices.scale(.7f, .65f, 1f);
+            matrices.translate(0, 1f / 16f, -4.4f / 16f);
+            matrices.mulPose(Axis.XP.rotationDegrees(22.5f));
+            matrices.translate(0, 1.5f / 16f, -.02f / 16f);
+            ShopRenderUtils.renderPrice(matrices, vertexConsumers, light, overlay, data, context, .012f);
             matrices.popPose();
 
             ShopRenderUtils.renderShopWarns(tickDelta, matrices, vertexConsumers, light, overlay, data, context, -0.5f,

@@ -1,0 +1,23 @@
+{
+  "parent": "spudaciousshops:block/shop_window_dark_oak",
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0.143514,
+        5.357154,
+        0
+      ],
+      "scale": [
+        1.148115,
+        1.148115,
+        1.148115
+      ]
+    }
+  }
+}

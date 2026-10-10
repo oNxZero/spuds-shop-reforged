@@ -32,10 +32,11 @@ public class CushionModel extends Model {
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
-        PartDefinition main = modelPartData.addOrReplaceChild("main", CubeListBuilder.create(),
-                PartPose.offsetAndRotation(8.0F, -5.0F, 12.0F, 0.0F, 3.1416F, 0.0F));
-        main.addOrReplaceChild("cussion_r1", CubeListBuilder.create().addBox(-13.0F, 4.0F, -10.0F, 10.0F, 1.0F, 7.0F),
-                PartPose.offsetAndRotation(8.0F, 13.0F, 8.0F, 0.3927F, 0.0F, 0.0F));
+        // Same coordinates and tilt as the cushion in the inventory model.
+        PartDefinition main = modelPartData.addOrReplaceChild("main",
+                CubeListBuilder.create().texOffs(0, 0)
+                        .addBox(3.0F, 6.0F, -10.0F, 10.0F, 1.0F, 7.0F),
+                PartPose.offsetAndRotation(0.0F, 12.0F, 16.0F, -0.3926991F, 0.0F, 0.0F));
 
         return LayerDefinition.create(modelData, 32, 32);
     }

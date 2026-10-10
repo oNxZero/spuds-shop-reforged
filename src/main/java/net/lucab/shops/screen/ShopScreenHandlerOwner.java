@@ -656,11 +656,10 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
 
             if (ItemStack.isSameItemSameComponents(stack, oldStack)) {
                 count += oldStack.getCount();
-                if (count > 64)
-                    count = 64;
+                count = Math.min(count, stack.getMaxStackSize());
                 this.container.setItem(this.getSlotIndex(), stack.copyWithCount(count));
             } else {
-                this.container.setItem(this.getSlotIndex(), stack.copyWithCount(count));
+                this.container.setItem(this.getSlotIndex(), stack.copyWithCount(Math.min(count, stack.getMaxStackSize())));
             }
             return stack;
         }

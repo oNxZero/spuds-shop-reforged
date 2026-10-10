@@ -29,9 +29,30 @@ public final class TradeExtractionRegression {
         require(named.getCount() == 20, "different components must remain untouched");
         require(result.stream().mapToInt(ItemStack::getCount).sum() == 7, "matching extraction");
         require(mixed.get(1).getCount() == 3, "matching remainder");
+        checkTradeStackLimits();
         checkRepeatedPurchases();
         checkDurabilityMatching();
         System.out.println("Trade extraction regressions passed");
+    }
+
+    private static void checkTradeStackLimits() {
+        ShopInventory shop = ShopInventory.create();
+        for (int slot : new int[]{ShopInventory.VENDING_SLOT, ShopInventory.PAYMENT_SLOT}) {
+            for (Item item : new Item[]{Items.ENDER_PEARL, Items.DIAMOND_SWORD, Items.DIAMOND}) {
+                ItemStack input = new ItemStack(item, 64);
+                shop.set(slot, input);
+                require(shop.get(slot).getCount() == input.getMaxStackSize(), "trade respects item stack limit");
+                require(input.getCount() == 64, "limiting trade does not consume cursor items");
+            }
+            shop.set(slot, new ItemStack(Items.ENDER_PEARL, 7));
+            require(shop.get(slot).getCount() == 7, "valid trade quantities remain unchanged");
+            ItemStack custom = new ItemStack(Items.DIAMOND, 64);
+            custom.set(DataComponents.MAX_STACK_SIZE, 8);
+            shop.set(slot, custom);
+            require(shop.get(slot).getCount() == 8, "component stack limits are respected");
+        }
+        shop.set(0, new ItemStack(Items.ENDER_PEARL, 48));
+        require(shop.get(0).getCount() == 48, "trade limits must not truncate stored stock");
     }
 
     private static void checkDurabilityMatching() {

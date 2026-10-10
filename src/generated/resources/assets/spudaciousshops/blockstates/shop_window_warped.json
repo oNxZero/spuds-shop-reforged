@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "spudaciousshops:block/shop_window_warped"
+    },
+    "facing=east": {
+      "model": "spudaciousshops:block/shop_window_warped",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "spudaciousshops:block/shop_window_warped",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "spudaciousshops:block/shop_window_warped",
+      "y": 270
+    }
+  }
+}

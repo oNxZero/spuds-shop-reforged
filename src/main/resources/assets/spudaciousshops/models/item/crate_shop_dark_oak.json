@@ -1,3 +1,23 @@
 {
-  "parent": "spudaciousshops:block/crate_shop_dark_oak"
+  "parent": "spudaciousshops:block/crate_shop_dark_oak",
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        -0.440619,
+        0.590525,
+        0
+      ],
+      "scale": [
+        0.664132,
+        0.664132,
+        0.664132
+      ]
+    }
+  }
 }

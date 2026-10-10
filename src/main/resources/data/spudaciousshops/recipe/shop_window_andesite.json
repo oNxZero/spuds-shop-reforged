@@ -1,22 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "pattern": [
+    "PPP",
+    " C "
+  ],
   "key": {
-    "c": {
-      "item": "minecraft:chest"
+    "P": {
+      "item": "minecraft:spruce_planks"
     },
-    "r": {
-      "item": "minecraft:andesite"
+    "C": {
+      "item": "minecraft:chest"
     }
   },
-  "pattern": [
-    "   ",
-    " r ",
-    "ccc"
-  ],
   "result": {
     "id": "spudaciousshops:shop_window_andesite",
     "count": 1
-  },
-  "show_notification": true
+  }
 }

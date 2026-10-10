@@ -70,6 +70,7 @@ public class RugShopBlock extends AbstractShopBlock {
     @Override
     protected void registerDefaultStateTemplate() {
         this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
                 .setValue(CONNECTED_NORTH, false)
                 .setValue(CONNECTED_EAST, false)
                 .setValue(CONNECTED_SOUTH, false)
@@ -80,7 +81,7 @@ public class RugShopBlock extends AbstractShopBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(
-                CONNECTED_NORTH,
+                FACING, CONNECTED_NORTH,
                 CONNECTED_EAST,
                 CONNECTED_SOUTH,
                 CONNECTED_WEST,
@@ -162,6 +163,7 @@ public class RugShopBlock extends AbstractShopBlock {
 
         return state
                 .setValue(BREAKABLE, false)
+                .setValue(FACING, ctx.getHorizontalDirection().getOpposite())
                 .setValue(CONNECTED_NORTH, getValForDir.apply(Direction.NORTH))
                 .setValue(CONNECTED_EAST, getValForDir.apply(Direction.EAST))
                 .setValue(CONNECTED_SOUTH, getValForDir.apply(Direction.SOUTH))
@@ -174,12 +176,30 @@ public class RugShopBlock extends AbstractShopBlock {
 
     @Override
     public BlockState rotate(BlockState state, LevelAccessor level, BlockPos pos, Rotation direction) {
-        return state;
+        BlockState result = state.setValue(FACING, direction.rotate(state.getValue(FACING)));
+        for (Direction facing : Direction.Plane.HORIZONTAL) {
+            result = result.setValue(connection(direction.rotate(facing)), state.getValue(connection(facing)));
+        }
+        return result;
+    }
+
+    private static BooleanProperty connection(Direction direction) {
+        return switch (direction) {
+            case NORTH -> CONNECTED_NORTH;
+            case EAST -> CONNECTED_EAST;
+            case SOUTH -> CONNECTED_SOUTH;
+            case WEST -> CONNECTED_WEST;
+            default -> throw new IllegalArgumentException("Horizontal direction required");
+        };
     }
 
     @Override
     public @NotNull BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState;
+        BlockState result = pState.setValue(FACING, pMirror.mirror(pState.getValue(FACING)));
+        for (Direction facing : Direction.Plane.HORIZONTAL) {
+            result = result.setValue(connection(pMirror.mirror(facing)), pState.getValue(connection(facing)));
+        }
+        return result;
     }
 
     @Override

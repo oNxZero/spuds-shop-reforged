@@ -20,6 +20,117 @@ public final class ShopRenderUtils {
     private ShopRenderUtils() {
     }
 
+    private record IconBounds(float width, float height, float x, float y) {}
+    private static final java.util.Map<net.minecraft.client.resources.model.BakedModel, IconBounds> ICON_BOUNDS =
+            new java.util.WeakHashMap<>();
+
+    private static IconBounds iconBounds(net.minecraft.client.resources.model.BakedModel model) {
+        return ICON_BOUNDS.computeIfAbsent(model, key -> {
+            PoseStack transform = new PoseStack();
+            key.getTransforms().getTransform(ItemDisplayContext.GUI).apply(false, transform);
+            transform.translate(-.5f, -.5f, -.5f);
+            float minX = Float.POSITIVE_INFINITY, minY = Float.POSITIVE_INFINITY;
+            float maxX = Float.NEGATIVE_INFINITY, maxY = Float.NEGATIVE_INFINITY;
+            if (!key.isGui3d()) {
+                var sprite = key.getParticleIcon().contents();
+                int left = sprite.width(), top = sprite.height(), right = 0, bottom = 0;
+                for (int y = 0; y < sprite.height(); y++) for (int x = 0; x < sprite.width(); x++) {
+                    if (!sprite.isTransparent(0, x, y)) {
+                        left = Math.min(left, x); top = Math.min(top, y);
+                        right = Math.max(right, x + 1); bottom = Math.max(bottom, y + 1);
+                    }
+                }
+                for (float x : new float[]{(float)left / sprite.width(), (float)right / sprite.width()})
+                    for (float y : new float[]{1f - (float)bottom / sprite.height(), 1f - (float)top / sprite.height()}) {
+                        var v = new org.joml.Vector3f(x, y, .5f).mulPosition(transform.last().pose());
+                        minX = Math.min(minX, v.x); maxX = Math.max(maxX, v.x);
+                        minY = Math.min(minY, v.y); maxY = Math.max(maxY, v.y);
+                    }
+            } else {
+                for (int side = -1; side < 6; side++) {
+                    var random = net.minecraft.util.RandomSource.create(42);
+                    for (var quad : key.getQuads(null, side < 0 ? null : net.minecraft.core.Direction.values()[side], random)) {
+                        int[] vertices = quad.getVertices();
+                        int stride = vertices.length / 4;
+                        for (int i = 0; i < 4; i++) {
+                            var v = new org.joml.Vector3f(Float.intBitsToFloat(vertices[i * stride]),
+                                    Float.intBitsToFloat(vertices[i * stride + 1]),
+                                    Float.intBitsToFloat(vertices[i * stride + 2])).mulPosition(transform.last().pose());
+                            minX = Math.min(minX, v.x); maxX = Math.max(maxX, v.x);
+                            minY = Math.min(minY, v.y); maxY = Math.max(maxY, v.y);
+                        }
+                    }
+                }
+            }
+            if (!Float.isFinite(minX) || maxY <= minY || maxX <= minX) return new IconBounds(1, 1, 0, 0);
+            return new IconBounds(maxX - minX, maxY - minY, (minX + maxX) / 2f, (minY + maxY) / 2f);
+        });
+    }
+
+    /** Lowest rendered vertex after display transforms, used to rest merchandise on a surface. */
+    public static float restingOffset(net.minecraft.client.resources.model.BakedModel model,
+            ItemDisplayContext mode, float scale, boolean flat) {
+        PoseStack transform = new PoseStack();
+        transform.scale(scale, scale, scale);
+        if (flat) {
+            transform.mulPose(Axis.XP.rotationDegrees(90f));
+            transform.mulPose(Axis.YP.rotationDegrees(180f));
+        }
+        model.getTransforms().getTransform(mode).apply(false, transform);
+        transform.translate(-.5f, -.5f, -.5f);
+        float minY = Float.POSITIVE_INFINITY;
+        for (int side = -1; side < 6; side++) {
+            for (var quad : model.getQuads(null, side < 0 ? null : net.minecraft.core.Direction.values()[side],
+                    net.minecraft.util.RandomSource.create(42))) {
+                int[] v = quad.getVertices();
+                int stride = v.length / 4;
+                for (int i = 0; i < 4; i++) {
+                    var point = new org.joml.Vector3f(Float.intBitsToFloat(v[i * stride]),
+                            Float.intBitsToFloat(v[i * stride + 1]), Float.intBitsToFloat(v[i * stride + 2]))
+                            .mulPosition(transform.last().pose());
+                    minY = Math.min(minY, point.y);
+                }
+            }
+        }
+        return Float.isFinite(minY) ? -minY : (flat ? .015f : scale / 4f);
+    }
+
+    public static int merchandiseCount(net.minecraft.world.item.ItemStack stack, int blockCap, int itemCap) {
+        var item = stack.getItem();
+        boolean equipment = item instanceof net.minecraft.world.item.TieredItem
+                || item instanceof net.minecraft.world.item.ArmorItem || stack.getMaxStackSize() == 1;
+        return Math.min(stack.getCount(), equipment ? 1 : item instanceof net.minecraft.world.item.BlockItem ? blockCap : itemCap);
+    }
+
+    /** Front faces negative z: positive local x is the viewer's left. */
+    public static void renderPrice(PoseStack poses, MultiBufferSource buffers, int light, int overlay,
+            RendererData data, BlockEntityRendererProvider.Context context, float textScale) {
+        var font = context.getFont();
+        var model = context.getItemRenderer().getModel(data.paymentItem(), null, null, 0);
+        var bounds = iconBounds(model);
+        float height = 7f * textScale;
+        float iconScale = height / Math.max(bounds.width(), bounds.height());
+        float iconWidth = bounds.width() * iconScale;
+        float width = font.width(data.text()) * textScale;
+        float gap = 4f * textScale;
+        float right = (width + gap + iconWidth) / 2f;
+        poses.pushPose();
+        poses.translate(right, height / 2f, 0);
+        poses.mulPose(Axis.ZP.rotationDegrees(180f));
+        poses.scale(textScale, textScale, -textScale);
+        font.drawInBatch(data.text(), 0, 0, 0xffffff, false,
+                poses.last().pose(), buffers, net.minecraft.client.gui.Font.DisplayMode.NORMAL, 0, light);
+        poses.popPose();
+        poses.pushPose();
+        poses.translate(right - width - gap - iconWidth / 2f, 0, -.001f);
+        poses.mulPose(Axis.YP.rotationDegrees(180f));
+        poses.scale(iconScale, iconScale, .001f);
+        poses.translate(-bounds.x(), -bounds.y(), 0);
+        context.getItemRenderer().renderStatic(data.paymentItem(), ItemDisplayContext.GUI,
+                light, overlay, poses, buffers, null, 0);
+        poses.popPose();
+    }
+
     public static void renderShopWarns(float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers,
             int light,
             int overlay, final RendererData data, BlockEntityRendererProvider.Context context, float yOffset,

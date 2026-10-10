@@ -4,6 +4,9 @@
     "planks": "minecraft:block/oak_planks",
     "log": "minecraft:block/stripped_oak_log",
     "log_end": "minecraft:block/stripped_oak_log_top",
-    "particle": "minecraft:block/oak_planks"
+    "particle": "minecraft:block/oak_planks",
+    "gold": "minecraft:block/gold_block",
+    "metal": "minecraft:block/iron_block",
+    "chain": "minecraft:block/chain"
   }
 }

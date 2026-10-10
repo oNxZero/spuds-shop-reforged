@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " C ",
+    " P ",
+    " I "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "P": {
+      "item": "minecraft:acacia_planks"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "id": "spudaciousshops:hook_shop_acacia",
+    "count": 1
+  }
+}

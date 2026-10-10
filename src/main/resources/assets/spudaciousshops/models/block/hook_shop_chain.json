@@ -1,195 +1,95 @@
 {
-    "render_type": "minecraft:cutout",
-    "credit": "Made with Blockbench, by Spudacious5705",
-    "texture_size": [
-        32,
-        32
-    ],
-    "textures": {
-        "2": "spudaciousshops:block/shop_hook",
-        "particle": "spudaciousshops:block/shop_hook"
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "chain": "minecraft:block/chain",
+    "particle": "minecraft:block/chain"
+  },
+  "elements": [
+    {
+      "name": "chain_link",
+      "from": [
+        6.5,
+        13,
+        8
+      ],
+      "to": [
+        9.5,
+        16,
+        8
+      ],
+      "shade": false,
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            0,
+            0,
+            3
+          ],
+          "texture": "#chain"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "texture": "#chain"
+        }
+      }
     },
-    "elements": [
-        {
-            "name": "chain1",
-            "from": [
-                8,
-                6.5,
-                6.5
-            ],
-            "to": [
-                8,
-                16,
-                9.5
-            ],
-            "rotation": {
-                "angle": -45,
-                "axis": "y",
-                "origin": [
-                    8,
-                    12,
-                    8
-                ]
-            },
-            "faces": {
-                "north": {
-                    "uv": [
-                        0,
-                        0,
-                        0,
-                        5
-                    ],
-                    "texture": "#2"
-                },
-                "east": {
-                    "uv": [
-                        3,
-                        0.25,
-                        4.5,
-                        5
-                    ],
-                    "texture": "#2"
-                },
-                "south": {
-                    "uv": [
-                        0,
-                        0,
-                        0,
-                        5
-                    ],
-                    "texture": "#2"
-                },
-                "west": {
-                    "uv": [
-                        4.5,
-                        0.25,
-                        6,
-                        5
-                    ],
-                    "texture": "#2"
-                },
-                "up": {
-                    "uv": [
-                        0,
-                        1.5,
-                        0,
-                        0
-                    ],
-                    "texture": "#2"
-                },
-                "down": {
-                    "uv": [
-                        0,
-                        0,
-                        0,
-                        1.5
-                    ],
-                    "texture": "#2"
-                }
-            }
+    {
+      "name": "chain_link",
+      "from": [
+        8,
+        13,
+        6.5
+      ],
+      "to": [
+        8,
+        16,
+        9.5
+      ],
+      "shade": false,
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      },
+      "faces": {
+        "west": {
+          "uv": [
+            6,
+            0,
+            3,
+            3
+          ],
+          "texture": "#chain"
+        },
+        "east": {
+          "uv": [
+            3,
+            0,
+            6,
+            3
+          ],
+          "texture": "#chain"
         }
-    ],
-    "display": {
-        "thirdperson_righthand": {
-            "rotation": [
-                67,
-                45,
-                0
-            ],
-            "translation": [
-                0,
-                -1.5,
-                -3.75
-            ],
-            "scale": [
-                0.56,
-                0.5,
-                0.5
-            ]
-        },
-        "thirdperson_lefthand": {
-            "rotation": [
-                67,
-                45,
-                0
-            ],
-            "translation": [
-                0,
-                -1.5,
-                -3.75
-            ],
-            "scale": [
-                0.56,
-                0.5,
-                0.5
-            ]
-        },
-        "firstperson_righthand": {
-            "rotation": [
-                0,
-                -70,
-                0
-            ],
-            "translation": [
-                2.75,
-                3,
-                0
-            ],
-            "scale": [
-                0.5,
-                0.5,
-                0.5
-            ]
-        },
-        "firstperson_lefthand": {
-            "rotation": [
-                0,
-                -70,
-                0
-            ],
-            "translation": [
-                2.75,
-                3,
-                0
-            ],
-            "scale": [
-                0.5,
-                0.5,
-                0.5
-            ]
-        },
-        "ground": {
-            "translation": [
-                0,
-                2,
-                0
-            ],
-            "scale": [
-                0.5,
-                0.5,
-                0.5
-            ]
-        },
-        "head": {
-            "translation": [
-                0,
-                10.5,
-                0
-            ]
-        }
-    },
-    "groups": [
-        {
-            "name": "main",
-            "origin": [
-                7,
-                10,
-                7
-            ],
-            "color": 0,
-            "children": [
-                0
-            ]
-        }
-    ]
+      }
+    }
+  ]
 }

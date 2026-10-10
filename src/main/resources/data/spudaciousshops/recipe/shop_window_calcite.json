@@ -1,22 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "pattern": [
+    "PPP",
+    " C "
+  ],
   "key": {
-    "c": {
-      "item": "minecraft:chest"
+    "P": {
+      "item": "minecraft:oak_planks"
     },
-    "r": {
-      "item": "minecraft:calcite"
+    "C": {
+      "item": "minecraft:chest"
     }
   },
-  "pattern": [
-    "   ",
-    " r ",
-    "ccc"
-  ],
   "result": {
     "id": "spudaciousshops:shop_window_calcite",
     "count": 1
-  },
-  "show_notification": true
+  }
 }

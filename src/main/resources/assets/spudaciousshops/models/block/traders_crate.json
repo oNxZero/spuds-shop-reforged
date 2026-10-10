@@ -1,10 +1,13 @@
 {
   "credit": "Original Spudacious5705 design; Reforged closed tray and timber stand",
   "textures": {
-    "planks": "minecraft:block/spruce_planks",
-    "log": "minecraft:block/stripped_spruce_log",
-    "log_end": "minecraft:block/stripped_spruce_log_top",
-    "particle": "minecraft:block/spruce_planks"
+    "planks": "minecraft:block/oak_planks",
+    "log": "minecraft:block/stripped_oak_log",
+    "log_end": "minecraft:block/stripped_oak_log_top",
+    "particle": "minecraft:block/oak_planks",
+    "gold": "minecraft:block/gold_block",
+    "metal": "minecraft:block/iron_block",
+    "chain": "minecraft:block/chain"
   },
   "elements": [
     {
@@ -24,8 +27,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            14,
+            1
           ],
           "texture": "#planks"
         },
@@ -34,7 +37,7 @@
             0,
             0,
             16,
-            16
+            1
           ],
           "texture": "#planks"
         },
@@ -42,8 +45,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            14,
+            1
           ],
           "texture": "#planks"
         },
@@ -52,7 +55,7 @@
             0,
             0,
             16,
-            16
+            1
           ],
           "texture": "#planks"
         },
@@ -60,7 +63,7 @@
           "uv": [
             0,
             0,
-            16,
+            14,
             16
           ],
           "texture": "#planks"
@@ -69,7 +72,7 @@
           "uv": [
             0,
             0,
-            16,
+            14,
             16
           ],
           "texture": "#planks"
@@ -102,8 +105,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1,
+            5
           ],
           "texture": "#planks"
         },
@@ -112,7 +115,7 @@
             0,
             0,
             16,
-            16
+            5
           ],
           "texture": "#planks"
         },
@@ -120,8 +123,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1,
+            5
           ],
           "texture": "#planks"
         },
@@ -130,7 +133,7 @@
             0,
             0,
             16,
-            16
+            5
           ],
           "texture": "#planks"
         },
@@ -138,7 +141,7 @@
           "uv": [
             0,
             0,
-            16,
+            1,
             16
           ],
           "texture": "#planks"
@@ -147,7 +150,7 @@
           "uv": [
             0,
             0,
-            16,
+            1,
             16
           ],
           "texture": "#planks"
@@ -180,8 +183,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1,
+            5
           ],
           "texture": "#planks"
         },
@@ -190,7 +193,7 @@
             0,
             0,
             16,
-            16
+            5
           ],
           "texture": "#planks"
         },
@@ -198,8 +201,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1,
+            5
           ],
           "texture": "#planks"
         },
@@ -208,7 +211,7 @@
             0,
             0,
             16,
-            16
+            5
           ],
           "texture": "#planks"
         },
@@ -216,7 +219,7 @@
           "uv": [
             0,
             0,
-            16,
+            1,
             16
           ],
           "texture": "#planks"
@@ -225,7 +228,7 @@
           "uv": [
             0,
             0,
-            16,
+            1,
             16
           ],
           "texture": "#planks"
@@ -258,8 +261,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            12,
+            5
           ],
           "texture": "#planks"
         },
@@ -267,8 +270,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1,
+            5
           ],
           "texture": "#planks"
         },
@@ -276,8 +279,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            12,
+            5
           ],
           "texture": "#planks"
         },
@@ -285,8 +288,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1,
+            5
           ],
           "texture": "#planks"
         },
@@ -294,8 +297,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            12,
+            1
           ],
           "texture": "#planks"
         },
@@ -303,8 +306,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            12,
+            1
           ],
           "texture": "#planks"
         }
@@ -336,8 +339,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            12,
+            5
           ],
           "texture": "#planks"
         },
@@ -345,8 +348,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1,
+            5
           ],
           "texture": "#planks"
         },
@@ -354,8 +357,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            12,
+            5
           ],
           "texture": "#planks"
         },
@@ -363,8 +366,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1,
+            5
           ],
           "texture": "#planks"
         },
@@ -372,8 +375,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            12,
+            1
           ],
           "texture": "#planks"
         },
@@ -381,8 +384,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            12,
+            1
           ],
           "texture": "#planks"
         }
@@ -414,8 +417,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -424,7 +427,7 @@
             0,
             0,
             16,
-            16
+            1
           ],
           "texture": "#planks"
         },
@@ -432,8 +435,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -442,7 +445,7 @@
             0,
             0,
             16,
-            16
+            1
           ],
           "texture": "#planks"
         },
@@ -450,7 +453,7 @@
           "uv": [
             0,
             0,
-            16,
+            1.5,
             16
           ],
           "texture": "#planks"
@@ -459,7 +462,7 @@
           "uv": [
             0,
             0,
-            16,
+            1.5,
             16
           ],
           "texture": "#planks"
@@ -492,8 +495,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -502,7 +505,7 @@
             0,
             0,
             16,
-            16
+            1
           ],
           "texture": "#planks"
         },
@@ -510,8 +513,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -520,7 +523,7 @@
             0,
             0,
             16,
-            16
+            1
           ],
           "texture": "#planks"
         },
@@ -528,7 +531,7 @@
           "uv": [
             0,
             0,
-            16,
+            1.5,
             16
           ],
           "texture": "#planks"
@@ -537,7 +540,7 @@
           "uv": [
             0,
             0,
-            16,
+            1.5,
             16
           ],
           "texture": "#planks"
@@ -570,8 +573,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            11.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -579,8 +582,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -588,8 +591,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            11.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -597,8 +600,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -606,8 +609,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            11.5,
+            1.5
           ],
           "texture": "#planks"
         },
@@ -615,8 +618,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            11.5,
+            1.5
           ],
           "texture": "#planks"
         }
@@ -648,8 +651,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            11.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -657,8 +660,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -666,8 +669,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            11.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -675,8 +678,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            1.5,
+            1
           ],
           "texture": "#planks"
         },
@@ -684,8 +687,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            11.5,
+            1.5
           ],
           "texture": "#planks"
         },
@@ -693,8 +696,8 @@
           "uv": [
             0,
             0,
-            16,
-            16
+            11.5,
+            1.5
           ],
           "texture": "#planks"
         }
@@ -712,22 +715,22 @@
     {
       "name": "plaque",
       "from": [
-        4,
-        0,
-        -3.5
+        4.75,
+        1.5,
+        -2.5
       ],
       "to": [
-        12,
-        7,
-        -2.5
+        11.25,
+        4.5,
+        -1.5
       ],
       "rotation": {
         "angle": 22.5,
         "axis": "x",
         "origin": [
-          4,
-          0,
-          -3
+          8,
+          3,
+          -2.5
         ]
       },
       "faces": {
@@ -736,68 +739,80 @@
             0,
             0,
             16,
-            16
+            7.384615384615385
           ],
           "texture": "#planks"
         },
         "east": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            0.25,
+            1.0666666666666667,
+            4.25,
+            7.466666666666667
           ],
           "texture": "#planks"
         },
         "south": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            1.0666666666666667,
+            1.0666666666666667,
+            14.933333333333334,
+            7.466666666666667
           ],
           "texture": "#planks"
         },
         "west": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            0.25,
+            1.0666666666666667,
+            4.25,
+            7.466666666666667
           ],
           "texture": "#planks"
         },
         "up": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            1.0666666666666667,
+            0.25,
+            14.933333333333334,
+            4.25
           ],
           "texture": "#planks"
         },
         "down": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            1.0666666666666667,
+            0.25,
+            14.933333333333334,
+            4.25
           ],
           "texture": "#planks"
         }
-      }
+      },
+      "spuds_board_bounds": [
+        [
+          4.5,
+          1.25,
+          -2.5
+        ],
+        [
+          11.5,
+          4.75,
+          -1.5
+        ]
+      ]
     },
     {
       "name": "left_foot_rail",
       "from": [
         0.75,
         0,
-        6.75
+        6.25
       ],
       "to": [
         2.0,
         1.25,
-        14
+        15.25
       ],
       "faces": {
         "north": {
@@ -805,69 +820,67 @@
             0,
             0,
             16,
-            16
+            16.0
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "east": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "south": {
           "uv": [
             0,
             0,
             16,
-            16
+            16.0
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "west": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "up": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "down": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         }
       }
     },
     {
       "name": "left_rear_leg",
       "from": [
-        0.75,
-        1.25,
-        12
+        1.0,
+        1,
+        13
       ],
       "to": [
-        2.0,
-        6.75,
+        1.75,
+        8,
         14
       ],
       "faces": {
@@ -875,67 +888,67 @@
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "east": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "south": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "west": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "up": {
           "uv": [
             0,
             0,
-            16,
+            12.0,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "down": {
           "uv": [
             0,
             0,
-            16,
+            12.0,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         }
       }
     },
     {
       "name": "left_saddle",
       "from": [
-        0.75,
+        0.875,
         -2.25,
-        14.5
+        7
       ],
       "to": [
-        2.0,
+        1.875,
         -1,
         18.5
       ],
@@ -944,57 +957,55 @@
           "uv": [
             0,
             0,
-            16,
+            12.8,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "east": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "south": {
           "uv": [
             0,
             0,
-            16,
+            12.8,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "west": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "up": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "down": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         }
       },
       "rotation": {
@@ -1004,84 +1015,6 @@
           8,
           -1,
           4
-        ]
-      }
-    },
-    {
-      "name": "left_brace",
-      "from": [
-        1.0,
-        1.5,
-        8
-      ],
-      "to": [
-        1.75,
-        8.5,
-        9
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log_end"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log_end"
-        }
-      },
-      "rotation": {
-        "angle": 45,
-        "axis": "x",
-        "origin": [
-          1.375,
-          1.5,
-          8.5
         ]
       }
     },
@@ -1090,12 +1023,12 @@
       "from": [
         14,
         0,
-        6.75
+        6.25
       ],
       "to": [
         15.25,
         1.25,
-        14
+        15.25
       ],
       "faces": {
         "north": {
@@ -1103,69 +1036,67 @@
             0,
             0,
             16,
-            16
+            16.0
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "east": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "south": {
           "uv": [
             0,
             0,
             16,
-            16
+            16.0
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "west": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "up": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "down": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         }
       }
     },
     {
       "name": "right_rear_leg",
       "from": [
-        14,
-        1.25,
-        12
+        14.25,
+        1,
+        13
       ],
       "to": [
-        15.25,
-        6.75,
+        15,
+        8,
         14
       ],
       "faces": {
@@ -1173,67 +1104,67 @@
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "east": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "south": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "west": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "up": {
           "uv": [
             0,
             0,
-            16,
+            12.0,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "down": {
           "uv": [
             0,
             0,
-            16,
+            12.0,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         }
       }
     },
     {
       "name": "right_saddle",
       "from": [
-        14,
+        14.125,
         -2.25,
-        14.5
+        7
       ],
       "to": [
-        15.25,
+        15.125,
         -1,
         18.5
       ],
@@ -1242,57 +1173,55 @@
           "uv": [
             0,
             0,
-            16,
+            12.8,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "east": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "south": {
           "uv": [
             0,
             0,
-            16,
+            12.8,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "west": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "up": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         },
         "down": {
           "uv": [
             0,
             0,
-            16,
+            4,
             16
           ],
-          "texture": "#log"
+          "texture": "#planks"
         }
       },
       "rotation": {
@@ -1306,93 +1235,15 @@
       }
     },
     {
-      "name": "right_brace",
-      "from": [
-        14.25,
-        1.5,
-        8
-      ],
-      "to": [
-        15,
-        8.5,
-        9
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log_end"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#log_end"
-        }
-      },
-      "rotation": {
-        "angle": 45,
-        "axis": "x",
-        "origin": [
-          14.625,
-          1.5,
-          8.5
-        ]
-      }
-    },
-    {
       "name": "rear_crossbeam",
       "from": [
-        2,
+        1.875,
         0.25,
-        12
+        13
       ],
       "to": [
-        14,
-        1.5,
+        14.125,
+        1,
         14
       ],
       "faces": {
@@ -1401,59 +1252,1303 @@
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "east": {
           "uv": [
             0,
             0,
             16,
-            16
+            12.0
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "south": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "west": {
           "uv": [
             0,
             0,
             16,
-            16
+            12.0
           ],
-          "texture": "#log_end"
+          "texture": "#planks"
         },
         "up": {
           "uv": [
             0,
             0,
             16,
-            16
+            4
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
         },
         "down": {
           "uv": [
             0,
             0,
             16,
+            4
+          ],
+          "texture": "#planks"
+        }
+      }
+    },
+    {
+      "name": "sign_trim_bottom",
+      "from": [
+        4.75,
+        1.0,
+        -2.5625
+      ],
+      "to": [
+        11.25,
+        1.5,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            10,
+            16,
+            12
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            1.0666666666666667,
+            7.466666666666667,
+            14.933333333333334,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            1.0666666666666667,
+            0.0,
+            14.933333333333334,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            1.0666666666666667,
+            0.0,
+            14.933333333333334,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_top",
+      "from": [
+        4.75,
+        4.5,
+        -2.5625
+      ],
+      "to": [
+        11.25,
+        5.0,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            10,
+            16,
+            12
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.0,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            1.0666666666666667,
+            0.0,
+            14.933333333333334,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.0,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            1.0666666666666667,
+            0.0,
+            14.933333333333334,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            1.0666666666666667,
+            0.0,
+            14.933333333333334,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_left",
+      "from": [
+        4.25,
+        1.5,
+        -2.5625
+      ],
+      "to": [
+        4.75,
+        4.5,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            0,
+            14,
             16
           ],
-          "texture": "#log",
-          "rotation": 90
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            1.0666666666666667,
+            4.5,
+            7.466666666666667
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            1.0666666666666667,
+            1.0666666666666667,
+            7.466666666666667
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            1.0666666666666667,
+            4.5,
+            7.466666666666667
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
         }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_right",
+      "from": [
+        11.25,
+        1.5,
+        -2.5625
+      ],
+      "to": [
+        11.75,
+        4.5,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            0,
+            14,
+            16
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            1.0666666666666667,
+            4.5,
+            7.466666666666667
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            14.933333333333334,
+            1.0666666666666667,
+            16.0,
+            7.466666666666667
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            1.0666666666666667,
+            4.5,
+            7.466666666666667
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            16.0,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            16.0,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        4.5,
+        1.0,
+        -2.5625
+      ],
+      "to": [
+        4.75,
+        1.25,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            8.0,
+            4.5,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            0.5333333333333333,
+            8.0,
+            1.0666666666666667,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            8.0,
+            4.5,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        4.25,
+        1.25,
+        -2.5625
+      ],
+      "to": [
+        4.5,
+        1.5,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            0.5333333333333333,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            0.5333333333333333,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            0.5333333333333333,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        4.5,
+        1.25,
+        -2.5625
+      ],
+      "to": [
+        4.75,
+        1.5,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            0.5333333333333333,
+            7.466666666666667,
+            1.0666666666666667,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        4.5,
+        4.75,
+        -2.5625
+      ],
+      "to": [
+        4.75,
+        5.0,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.0,
+            4.5,
+            0.5333333333333333
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            0.5333333333333333
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.0,
+            4.5,
+            0.5333333333333333
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        4.25,
+        4.5,
+        -2.5625
+      ],
+      "to": [
+        4.5,
+        4.75,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            0.5333333333333333,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            0.5333333333333333,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            0.5333333333333333,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        4.5,
+        4.5,
+        -2.5625
+      ],
+      "to": [
+        4.75,
+        4.75,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            0.5333333333333333,
+            0.5333333333333333,
+            1.0666666666666667,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            0.5333333333333333,
+            0.0,
+            1.0666666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        11.25,
+        1.0,
+        -2.5625
+      ],
+      "to": [
+        11.5,
+        1.25,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            8.0,
+            4.5,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            14.933333333333334,
+            8.0,
+            15.466666666666667,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            8.0,
+            4.5,
+            8.533333333333333
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        11.5,
+        1.25,
+        -2.5625
+      ],
+      "to": [
+        11.75,
+        1.5,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            15.466666666666667,
+            7.466666666666667,
+            16.0,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            15.466666666666667,
+            0.0,
+            16.0,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            15.466666666666667,
+            0.0,
+            16.0,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        11.25,
+        1.25,
+        -2.5625
+      ],
+      "to": [
+        11.5,
+        1.5,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            14.933333333333334,
+            7.466666666666667,
+            15.466666666666667,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            7.466666666666667,
+            4.5,
+            8.0
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        11.25,
+        4.75,
+        -2.5625
+      ],
+      "to": [
+        11.5,
+        5.0,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.0,
+            4.5,
+            0.5333333333333333
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            0.5333333333333333
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.0,
+            4.5,
+            0.5333333333333333
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        11.5,
+        4.5,
+        -2.5625
+      ],
+      "to": [
+        11.75,
+        4.75,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            15.466666666666667,
+            0.5333333333333333,
+            16.0,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            15.466666666666667,
+            0.0,
+            16.0,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            15.466666666666667,
+            0.0,
+            16.0,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
+      }
+    },
+    {
+      "name": "sign_trim_corner",
+      "from": [
+        11.25,
+        4.5,
+        -2.5625
+      ],
+      "to": [
+        11.5,
+        4.75,
+        -1.4375
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            10,
+            13,
+            11
+          ],
+          "texture": "#planks"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "south": {
+          "uv": [
+            14.933333333333334,
+            0.5333333333333333,
+            15.466666666666667,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.5333333333333333,
+            4.5,
+            1.0666666666666667
+          ],
+          "texture": "#planks"
+        },
+        "up": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        },
+        "down": {
+          "uv": [
+            14.933333333333334,
+            0.0,
+            15.466666666666667,
+            4.5
+          ],
+          "texture": "#planks"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          3,
+          -2.5
+        ]
       }
     }
   ],
@@ -1485,6 +2580,91 @@
         0.6,
         0.6,
         0.6
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.39,
+        0.39,
+        0.39
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.39,
+        0.39,
+        0.39
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.455,
+        0.455,
+        0.455
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.455,
+        0.455,
+        0.455
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
       ]
     }
   }

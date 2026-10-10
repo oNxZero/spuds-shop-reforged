@@ -1,0 +1,12 @@
+{
+  "parent": "spudaciousshops:block/hook_shop_plaque",
+  "textures": {
+    "planks": "minecraft:block/jungle_planks",
+    "log": "minecraft:block/stripped_jungle_log",
+    "log_end": "minecraft:block/stripped_jungle_log_top",
+    "particle": "minecraft:block/jungle_planks",
+    "gold": "minecraft:block/gold_block",
+    "metal": "minecraft:block/iron_block",
+    "chain": "minecraft:block/chain"
+  }
+}

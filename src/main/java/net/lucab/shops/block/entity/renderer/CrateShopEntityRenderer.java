@@ -111,8 +111,14 @@ public class CrateShopEntityRenderer implements BlockEntityRenderer<CrateShopEnt
             for (TranslationFactor i : DISPLAY_TRANSLATIONS) {
                 matrices.pushPose();
                 matrices.translate(i.x, i.y, -i.z);
-                matrices.mulPose(Axis.YP.rotationDegrees(i.ry));
-                matrices.mulPose(Axis.XP.rotationDegrees(i.rx + rotationXbonus));
+                if (data.stockDisplayType()) {
+                    matrices.mulPose(Axis.YP.rotationDegrees(i.ry));
+                    matrices.mulPose(Axis.XP.rotationDegrees(i.rx + rotationXbonus));
+                } else {
+                    // Keep every sprite on the same front face; vary only its in-plane angle.
+                    matrices.mulPose(Axis.YP.rotationDegrees(180f));
+                    matrices.mulPose(Axis.ZP.rotationDegrees(Math.max(-18f, Math.min(18f, i.rx))));
+                }
                 matrices.scale(scaleFactorX, scaleFactorY, scaleFactorZ);
                 this.context.getItemRenderer().renderStatic(data.displayItem(), mode,
                         light,
@@ -126,70 +132,10 @@ public class CrateShopEntityRenderer implements BlockEntityRenderer<CrateShopEnt
 
             matrices.popPose();
 
-            // render price (count of currency)
             matrices.pushPose();
-
-            matrices.translate(0.06f, 0.14f, -0.664);
-
-            matrices.mulPose(Axis.ZP.rotationDegrees(180.0f));
-            matrices.mulPose(Axis.XP.rotationDegrees(-22.5f));
-
-            matrices.scale(0.018f, 0.018f, 0.018f);
-
-            font.drawInBatch(
-                    data.text(),
-                    data.width(),
-                    -4f,
-                    0xffffff,
-                    false,
-                    matrices.last().pose(),
-                    vertexConsumers,
-                    Font.DisplayMode.NORMAL,
-                    0,
-                    light);
-            matrices.popPose();
-
-            // render amount being sold
-            matrices.pushPose();
-
-            matrices.translate(-0.03f, 0.3f, -0.5975);
-
-            matrices.mulPose(Axis.ZP.rotationDegrees(180.0f));
-            matrices.mulPose(Axis.XP.rotationDegrees(-22.5f));
-
-            matrices.scale(0.025f, 0.025f, 0.025f);
-
-            font.drawInBatch(
-                    data.stockQuantity,
-                    data.qWidth(),
-                    -4f,
-                    0xffff00,
-                    false,
-                    matrices.last().pose(),
-                    vertexConsumers,
-                    Font.DisplayMode.NORMAL,
-                    0,
-                    light);
-            matrices.popPose();
-
-            // render currency type
-            matrices.pushPose();
-
-            matrices.translate(-0.12f, 0.14f, -0.664);
-
-            matrices.mulPose(Axis.ZP.rotationDegrees(180.0f));
-            matrices.mulPose(Axis.XP.rotationDegrees(157.5f));
-
-            matrices.scale(0.18f, 0.18f, 0.18f);
-
-            this.context.getItemRenderer().renderStatic(data.paymentItem(),
-                    ItemDisplayContext.GUI,
-                    light,
-                    overlay,
-                    matrices,
-                    vertexConsumers,
-                    null,
-                    0);
+            matrices.translate(0f, .1875f, -.664f);
+            matrices.mulPose(Axis.XP.rotationDegrees(22.5f));
+            ShopRenderUtils.renderPrice(matrices, vertexConsumers, light, overlay, data, context, .014f);
             matrices.popPose();
             matrices.popPose();
 

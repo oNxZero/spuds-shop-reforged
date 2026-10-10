@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " C ",
+    " P ",
+    " I "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "P": {
+      "item": "minecraft:spruce_planks"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "id": "spudaciousshops:hook_shop_spruce",
+    "count": 1
+  }
+}

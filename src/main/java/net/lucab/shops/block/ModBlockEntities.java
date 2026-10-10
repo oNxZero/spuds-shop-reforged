@@ -5,6 +5,7 @@ import net.lucab.shops.block.custom.RugShopBlock;
 import net.lucab.shops.block.custom.ShelfShopBlock;
 import net.lucab.shops.block.entity.*;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -33,13 +34,12 @@ public class ModBlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WindowSillShopEntity>> WINDOW_SHOP_ENTITY = BLOCK_ENTITIES
             .register("shop_b_e_window_sill",
                     () -> BlockEntityType.Builder.of(WindowSillShopEntity::new,
-                            ModBlocks.SHOP_BLOCK_WINDOW_CALCITE.get(),
-                            ModBlocks.SHOP_BLOCK_WINDOW_ANDESITE.get()).build(null));
+                            ModBlocks.ALL_WINDOW_SHOPS.stream().map(DeferredHolder::get).toArray(Block[]::new)).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HookShopEntity>> HOOK_SHOP_ENTITY = BLOCK_ENTITIES
             .register("shop_b_e_hook",
                     () -> BlockEntityType.Builder.of(HookShopEntity::new,
-                            ModBlocks.SHOP_BLOCK_HOOK.get()).build(null));
+                            ModBlocks.ALL_HOOK_SHOPS.stream().map(DeferredHolder::get).toArray(Block[]::new)).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RugShopEntity>> RUG_SHOP_ENTITY = BLOCK_ENTITIES
             .register("shop_b_e_rug",

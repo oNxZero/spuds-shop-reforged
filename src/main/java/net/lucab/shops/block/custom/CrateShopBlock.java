@@ -68,7 +68,7 @@ public class CrateShopBlock extends AbstractShopBlock {
     public static final MapCodec<CrateShopBlock> CODEC =
             com.mojang.serialization.codecs.RecordCodecBuilder.mapCodec(instance -> instance.group(
                     propertiesCodec(),
-                    VariantResources.wood_variant.CODEC.optionalFieldOf("variant", VariantResources.wood_variant.SPRUCE)
+                    VariantResources.wood_variant.CODEC.optionalFieldOf("variant", VariantResources.wood_variant.OAK)
                             .forGetter(block -> block.variant))
                     .apply(instance, CrateShopBlock::new));
 

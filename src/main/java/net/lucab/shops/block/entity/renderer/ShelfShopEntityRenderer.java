@@ -73,100 +73,39 @@ public class ShelfShopEntityRenderer implements BlockEntityRenderer<ShelfShopEnt
 
     private void renderShelf(ShelfShopEntity.RendererData data, float tickDelta, PoseStack matrices,
             MultiBufferSource vertexConsumers, int light, int overlay, ShelfShopEntity.ShelfRenderData furtherData) {
-        ItemDisplayContext mode;
-        float itemTranslationFactor;
-        Font font = this.context.getFont();
-        Axis rotationAxis;
-        int renderCount;
-        if (data != null) {
-            data.frameAccumulator();
-            if (data.shopFunctional()) {
-
-                // render item being sold
-                matrices.pushPose();
-                matrices.translate(0f, -0.216f, 0.3f);
-                if (data.stockDisplayType()) {
-                    // matrices.mulPose(Axis.YP.rotationDegrees(180.0f));
-                    matrices.scale(0.2f, 0.2f, 0.2f);
-                    mode = ItemDisplayContext.FIXED;
-                    itemTranslationFactor = 1.15f;
-                    rotationAxis = Axis.YP;
-                    renderCount = 1;
-                } else {
-                    matrices.translate(0f, -0.08f, 0f);
-                    matrices.mulPose(Axis.XP.rotationDegrees(90.0f));
-                    matrices.scale(0.4f, 0.4f, 0.4f);
-                    mode = ItemDisplayContext.GUI;
-                    itemTranslationFactor = 0.5f;
-                    rotationAxis = Axis.ZP;
-                    renderCount = 3;
-                }
-
-                for (int y = 0; y < renderCount; y++) {
-                    // left
-                    matrices.pushPose();
-                    matrices.translate(-itemTranslationFactor, 0f, -y * 0.05f);
-                    matrices.mulPose(rotationAxis.rotationDegrees(furtherData.itemLrotation + (y + 1) * 55f));
-                    this.context.getItemRenderer().renderStatic(data.displayItem(), mode,
-                            light,
-                            overlay,
-                            matrices,
-                            vertexConsumers,
-                            null,
-                            0);
-                    matrices.popPose();
-
-                    // right
-                    matrices.pushPose();
-                    matrices.translate(itemTranslationFactor, 0f, -y * 0.05f);
-                    matrices.mulPose(rotationAxis.rotationDegrees(furtherData.itemRrotation + (y + 1) * 55f));
-                    this.context.getItemRenderer().renderStatic(data.displayItem(), mode,
-                            light,
-                            overlay,
-                            matrices,
-                            vertexConsumers,
-                            null,
-                            0);
-                    matrices.popPose();
-                }
-                matrices.popPose();
-
-                renderPriceTag(data, matrices, vertexConsumers, light, overlay);
-
-                // Keep the yellow product quantity separate from the white payment price.
-                matrices.pushPose();
-                matrices.translate(0f, -0.16f, 0.43749f);
-                matrices.mulPose(Axis.ZP.rotationDegrees(180f));
-                matrices.scale(0.016f, 0.016f, -0.016f);
-                font.drawInBatch(data.stockQuantity, -font.width(data.stockQuantity) / 2f, -4f,
-                        0xffff00, false, matrices.last().pose(), vertexConsumers,
-                        Font.DisplayMode.NORMAL, 0, light);
-                matrices.popPose();
+        if (data == null) return;
+        data.frameAccumulator();
+        if (!data.shopFunctional()) return;
+        boolean block = data.stockDisplayType();
+        int count = ShopRenderUtils.merchandiseCount(data.displayItem(), 3, 3);
+        // A spaced row with small depth/angle variations; blocks never share a footprint.
+        for (int i = 0; i < count; i++) {
+            float x = (i - (count - 1) / 2f) * .27f;
+            float z = count == 1 ? .30f : new float[]{.27f, .32f, .285f}[i];
+            matrices.pushPose();
+            matrices.translate(x, block ? -.20f : -.29f + i * .003f, z);
+            if (block) {
+                matrices.mulPose(Axis.YP.rotationDegrees(new float[]{-12, 8, -6, 15}[i % 4]));
+                matrices.scale(.4f, .4f, .4f);
+            } else {
+                matrices.mulPose(Axis.XP.rotationDegrees(90f));
+                matrices.mulPose(Axis.YP.rotationDegrees(180f));
+                matrices.mulPose(Axis.ZP.rotationDegrees(new float[]{-12, 9, -5, 16}[i % 4]));
+                matrices.scale(.36f, .36f, .36f);
             }
+            context.getItemRenderer().renderStatic(data.displayItem(),
+                    block ? ItemDisplayContext.FIXED : ItemDisplayContext.GUI,
+                    light, overlay, matrices, vertexConsumers, null, 0);
+            matrices.popPose();
         }
+        renderPriceTag(data, matrices, vertexConsumers, light, overlay);
     }
 
     private void renderPriceTag(ShelfShopEntity.RendererData data, PoseStack matrices,
             MultiBufferSource vertexConsumers, int light, int overlay) {
-        Font font = context.getFont();
-        // Tag model: front surface z=8.25, centered at y=2 (model units).
-        // A small forward offset keeps text and currency clear of the wood face.
         matrices.pushPose();
-        matrices.translate(1.5f / 16f, -6f / 16f, 0.22f / 16f);
-        matrices.mulPose(Axis.ZP.rotationDegrees(180f));
-        matrices.scale(0.014f, 0.014f, -0.014f);
-        font.drawInBatch(data.text(), -font.width(data.text()) / 2f, -4f,
-                0xffffff, false, matrices.last().pose(), vertexConsumers,
-                Font.DisplayMode.NORMAL, 0, light);
-        matrices.popPose();
-
-        matrices.pushPose();
-        matrices.translate(-1.5f / 16f, -6f / 16f, 0.1f / 16f);
-        matrices.mulPose(Axis.YP.rotationDegrees(180f));
-        // GUI projection keeps both block currency and flat items inside the tag.
-        matrices.scale(0.12f, 0.12f, 0.025f);
-        context.getItemRenderer().renderStatic(data.paymentItem(), ItemDisplayContext.GUI,
-                light, overlay, matrices, vertexConsumers, null, 0);
+        matrices.translate(0f, -.5f, .014f);
+        ShopRenderUtils.renderPrice(matrices, vertexConsumers, light, overlay, data, context, .012f);
         matrices.popPose();
     }
 }

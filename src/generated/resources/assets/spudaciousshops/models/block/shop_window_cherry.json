@@ -1,0 +1,12 @@
+{
+  "parent": "spudaciousshops:block/shop_window",
+  "textures": {
+    "planks": "minecraft:block/cherry_planks",
+    "log": "minecraft:block/stripped_cherry_log",
+    "log_end": "minecraft:block/stripped_cherry_log_top",
+    "particle": "minecraft:block/cherry_planks",
+    "gold": "minecraft:block/gold_block",
+    "metal": "minecraft:block/iron_block",
+    "chain": "minecraft:block/chain"
+  }
+}

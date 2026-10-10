@@ -2,6 +2,7 @@
   "parent": "spudaciousshops:block/rug_shop/connected_4",
   "textures": {
     "all": "spudaciousshops:block/rug/orange",
+    "edge": "minecraft:block/orange_wool",
     "particle": "#all"
   }
 }

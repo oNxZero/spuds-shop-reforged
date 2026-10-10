@@ -39,8 +39,24 @@ public class WindowSillShopBlock extends AbstractShopBlock {
 
     public Item STONE_TYPE;
 
-    public static final VoxelShape SHAPE = createCuboidShape(0, -1.0, -1.0, 16.0, 2.0, 17.0);
-    public static final VoxelShape SHAPE_ROTATED = createCuboidShape(-1.0, -1.0, 0, 17.0, 2.0, 16.0);
+    private static final VoxelShape[] TRAY_SHAPES = new VoxelShape[4];
+    static {
+        for (int turn = 0; turn < 4; turn++) {
+            VoxelShape shape = Shapes.empty();
+            for (double[] box : new double[][]{
+                    {1,0,4,15,2,6}, {1,0,6,15,4,8},
+                    {1,0,8,15,6,10}, {1,0,10,15,8.5,12},
+                    {4.25,.5,3.5,11.75,4.25,4.5}}) {
+                double x1=8+(box[0]-8)*.7,z1=box[2],x2=8+(box[3]-8)*.7,z2=box[5];
+                for (int i=0;i<turn;i++) {
+                    double nx1=16-z2,nx2=16-z1;
+                    z1=x1;z2=x2;x1=nx1;x2=nx2;
+                }
+                shape=Shapes.or(shape,createCuboidShape(x1,box[1]*.65,z1,x2,box[4]*.65,z2));
+            }
+            TRAY_SHAPES[turn]=shape;
+        }
+    }
 
     public WindowSillShopBlock(BlockBehaviour.Properties properties, Item stoneType) {
         super(properties);
@@ -104,8 +120,10 @@ public class WindowSillShopBlock extends AbstractShopBlock {
     @Override
     public VoxelShape getGenericShape(BlockState state) {
         return switch (state.getValue(FACING)) {
-            case EAST, WEST -> SHAPE_ROTATED;
-            default -> SHAPE;
+            case EAST -> TRAY_SHAPES[1];
+            case SOUTH -> TRAY_SHAPES[2];
+            case WEST -> TRAY_SHAPES[3];
+            default -> TRAY_SHAPES[0];
         };
     }
 

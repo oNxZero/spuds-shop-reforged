@@ -1,12 +1,11 @@
 {
   "variants": {
+    "facing=north": {
+      "model": "spudaciousshops:block/shop_window_calcite"
+    },
     "facing=east": {
       "model": "spudaciousshops:block/shop_window_calcite",
       "y": 90
-    },
-    "facing=north": {
-      "model": "spudaciousshops:block/shop_window_calcite",
-      "y": 0
     },
     "facing=south": {
       "model": "spudaciousshops:block/shop_window_calcite",

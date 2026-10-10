@@ -4,6 +4,9 @@
     "planks": "minecraft:block/bamboo_planks",
     "log": "minecraft:block/stripped_bamboo_block",
     "log_end": "minecraft:block/stripped_bamboo_block_top",
-    "particle": "minecraft:block/bamboo_planks"
+    "particle": "minecraft:block/bamboo_planks",
+    "gold": "minecraft:block/gold_block",
+    "metal": "minecraft:block/iron_block",
+    "chain": "minecraft:block/chain"
   }
 }

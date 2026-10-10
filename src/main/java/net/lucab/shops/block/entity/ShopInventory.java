@@ -32,6 +32,15 @@ public class ShopInventory extends NonNullList<ItemStack> {
         return new ShopInventory(stacks);
     }
 
+    @Override
+    public ItemStack set(int slot, ItemStack stack) {
+        if ((slot == VENDING_SLOT || slot == PAYMENT_SLOT) && !stack.isEmpty()
+                && stack.getCount() > stack.getMaxStackSize()) {
+            stack = stack.copyWithCount(stack.getMaxStackSize());
+        }
+        return super.set(slot, stack);
+    }
+
     public int availableStock() {
         int count = 0;
         ItemStack product = get(VENDING_SLOT);

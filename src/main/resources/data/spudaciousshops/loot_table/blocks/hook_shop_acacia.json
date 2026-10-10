@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "spudaciousshops:crate_shop_oak"
+          "name": "spudaciousshops:hook_shop_acacia"
         }
       ],
       "conditions": [

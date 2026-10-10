@@ -1,25 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "pattern": [
+    " C ",
+    " P ",
+    " I "
+  ],
   "key": {
-    "c": {
-      "item": "minecraft:chest"
-    },
-    "h": {
-      "item": "minecraft:tripwire_hook"
-    },
-    "i": {
+    "C": {
       "item": "minecraft:chain"
+    },
+    "P": {
+      "item": "minecraft:oak_planks"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
     }
   },
-  "pattern": [
-    " i ",
-    "ccc",
-    " h "
-  ],
   "result": {
     "id": "spudaciousshops:hook_shop",
     "count": 1
-  },
-  "show_notification": true
+  }
 }

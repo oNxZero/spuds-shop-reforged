@@ -1,1 +1,23 @@
-{ "parent": "spudaciousshops:block/shop_oak" }
+{
+  "parent": "spudaciousshops:item/shop_oak_red",
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        -0.0,
+        -0.31782,
+        0
+      ],
+      "scale": [
+        0.550826,
+        0.550826,
+        0.550826
+      ]
+    }
+  }
+}

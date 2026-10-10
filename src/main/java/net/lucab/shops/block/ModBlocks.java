@@ -108,13 +108,30 @@ public class ModBlocks {
 
     // region WINDOW SILL
     public static final DeferredHolder<Block, WindowSillShopBlock> SHOP_BLOCK_WINDOW_CALCITE = registerWindowShopBlock(
-            "calcite", () -> Items.CALCITE);
+            "calcite", () -> Items.OAK_PLANKS);
     public static final DeferredHolder<Block, WindowSillShopBlock> SHOP_BLOCK_WINDOW_ANDESITE = registerWindowShopBlock(
-            "andesite", () -> Items.ANDESITE);
+            "andesite", () -> Items.SPRUCE_PLANKS);
+    static {
+        for (wood_variant variant : wood_variant.values()) {
+            if (variant != OAK && variant != SPRUCE) {
+                registerWindowShopBlock(variant.name, () -> BuiltInRegistries.ITEM.get(
+                        net.minecraft.resources.ResourceLocation.withDefaultNamespace(variant.name + "_planks")));
+            }
+        }
+    }
     // endregion
 
     public static final DeferredHolder<Block, HookShopBlock> SHOP_BLOCK_HOOK = registerBasic("hook_shop",
             () -> new HookShopBlock(settingsChain));
+
+    public static final List<DeferredHolder<Block, HookShopBlock>> ALL_HOOK_SHOPS = new ArrayList<>();
+    static {
+        ALL_HOOK_SHOPS.add(SHOP_BLOCK_HOOK);
+        for (wood_variant variant : wood_variant.values()) {
+            if (variant != OAK) ALL_HOOK_SHOPS.add(registerBasic("hook_shop_" + variant.name,
+                    () -> new HookShopBlock(settingsChain)));
+        }
+    }
 
     // region RUG
     public static final DeferredHolder<Block, RugShopBlock> SHOP_BLOCK_RUG_RED = registerRugLegacy();
@@ -176,12 +193,14 @@ public class ModBlocks {
     }
     // endregion
 
-    // Keep the original spruce crate ID valid in existing worlds.
-    public static final DeferredHolder<Block, CrateShopBlock> SHOP_BLOCK_CRATE = registerCrate("crate_shop", SPRUCE);
+    // Keep the original crate ID valid in existing worlds.
+    public static final DeferredHolder<Block, CrateShopBlock> SHOP_BLOCK_CRATE = registerCrate("crate_shop", OAK);
 
     static {
         for (wood_variant variant : wood_variant.values()) {
-            registerCrate("crate_shop_" + variant.name, variant);
+            if (variant != OAK) {
+                registerCrate("crate_shop_" + variant.name, variant);
+            }
         }
     }
 
@@ -247,7 +266,7 @@ public class ModBlocks {
     private static DeferredHolder<Block, WindowSillShopBlock> registerWindowShopBlock(String name,
             Supplier<Item> stoneType) {
         DeferredHolder<Block, WindowSillShopBlock> shop = registerBasic("shop_window_" + name,
-                () -> new WindowSillShopBlock(settingsStone, stoneType.get()));
+                () -> new WindowSillShopBlock(settingsWood, stoneType.get()));
         ALL_WINDOW_SHOPS.add(shop);
         VariantResources.putItem(WINDOW_SILL, new PostRegAssigner<>(stoneType), shop::get);
         return shop;
