@@ -59,7 +59,7 @@ public class ShopScreenHandlerCustomer extends AbstractContainerMenu {
     public ShopScreenHandlerCustomer(int syncId, Inventory playerInv, AbstractShopEntity shop,
             AbstractShopEntity.InventoryDelegate inventoryDelegate) {// serverInit
         super(ModScreenHandlers.SHOP_SCREEN_HANDLER_CUSTOMER.get(), syncId);
-        this.shopInventory = shop.getInventoryDelegate(playerInv.player);
+        this.shopInventory = inventoryDelegate;
         this.pos = shop.getBlockPos();
         this.SCREEN_SETTINGS = null;
         this.playerInventory = playerInv;
@@ -113,6 +113,10 @@ public class ShopScreenHandlerCustomer extends AbstractContainerMenu {
                 return;
             }
             if (slot instanceof shop_vendor_slot) {
+                if (clickType == ClickType.QUICK_MOVE) {
+                    quickMoveStack(player, slotId);
+                    return;
+                }
                 if (clickType == ClickType.PICKUP) {
                     if (shopInventory.canTrade(player)) {
                         trade();
@@ -126,6 +130,10 @@ public class ShopScreenHandlerCustomer extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int pIndex) {
+        if (!stillValid(player) || pIndex < 0 || pIndex >= slots.size()
+                || !(slots.get(pIndex) instanceof shop_vendor_slot)) {
+            return ItemStack.EMPTY;
+        }
         int tradeCount = 0;
         while (tradeCount < 64 && shopInventory.canTrade(player)) {
             trade();
@@ -136,8 +144,7 @@ public class ShopScreenHandlerCustomer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        return this.playerInventory.player.level().getBlockEntity(this.pos) instanceof AbstractShopEntity &&
-                player.distanceToSqr(this.pos.getCenter()) <= 64.0;
+        return shopInventory != null && shopInventory.stillValid(player);
     }
 
     static class shop_payment_slot extends Slot {

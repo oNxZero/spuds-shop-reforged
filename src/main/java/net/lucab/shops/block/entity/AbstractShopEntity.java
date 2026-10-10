@@ -135,6 +135,9 @@ public abstract class AbstractShopEntity extends BlockEntity {
         }
 
         public void trade(Inventory playerInv) {
+            if (level == null || level.isClientSide() || !canTrade(playerInv.player)) {
+                return;
+            }
             NonNullList<ItemStack> vendList;
             boolean tradeCreative = toggleSettings.getOrDefault(ToggleButtonID.CreativeToggle, false);
             if (tradeCreative) {
@@ -171,10 +174,10 @@ public abstract class AbstractShopEntity extends BlockEntity {
                 }
             }
 
-            int ptr = 0;
-            boolean success = true;
-            while (success && ptr < (vendList.size())) {
-                success = playerInv.add(vendList.get(ptr));
+            setChanged();
+            playerInv.setChanged();
+            for (ItemStack stack : vendList) {
+                playerInv.add(stack);
             }
 
             Player player = playerInv.player;
@@ -183,6 +186,9 @@ public abstract class AbstractShopEntity extends BlockEntity {
         }
 
         public boolean canTrade(Player playerEntity) {
+            if (!stillValid(playerEntity) || inventory.tradeNonFunctional()) {
+                return false;
+            }
             if (!toggleSettings.getOrDefault(ToggleButtonID.CreativeToggle, false)) {
                 if (inventory.outOfStock()) {
                     errorMessage("Shop is out of stock", playerEntity);
@@ -211,44 +217,28 @@ public abstract class AbstractShopEntity extends BlockEntity {
 
         }
 
-        private interface miniDelegate {
+        interface miniDelegate {
             ItemStack getStack(int index);
         }
 
-        private static NonNullList<ItemStack> takeItems(ItemStack retrieveStack, miniDelegate inventory, int start,
+        static NonNullList<ItemStack> takeItems(ItemStack retrieveStack, miniDelegate inventory, int start,
                 int end) {
             NonNullList<ItemStack> list = NonNullList.create();
             int moneyRequired = retrieveStack.getCount();
             for (int i = start; i <= end; i++) {
                 ItemStack stack = inventory.getStack(i);
                 if (canUseInTrade(stack, retrieveStack)) {
-                    if (stack.getCount() >= moneyRequired) {
-                        addToList(list, stack.split(moneyRequired));
+                    ItemStack taken = stack.split(Math.min(stack.getCount(), moneyRequired));
+                    moneyRequired -= taken.getCount();
+                    if (!taken.isEmpty()) {
+                        list.add(taken);
+                    }
+                    if (moneyRequired == 0) {
                         break;
                     }
-                    moneyRequired -= stack.getCount();
-                    addToList(list, stack);
                 }
             }
             return list;
-        }
-
-        private static void addToList(NonNullList<ItemStack> list, ItemStack stack) {
-            if (list.isEmpty()) {
-                list.add(stack.copyAndClear());
-                return;
-            }
-            int end = list.size() - 1;
-            ItemStack listEnd = list.get(end);
-            int space = getAvalableSpace(listEnd);
-            ItemStack split = stack.split(space);
-            list.set(end,
-                    split.copyWithCount(
-                            listEnd.getCount() +
-                                    split.getCount()));
-            if (!split.isEmpty()) {
-                list.add(stack.copyAndClear());
-            }
         }
 
         private static int getAvalableSpace(ItemStack stack) {
@@ -284,7 +274,12 @@ public abstract class AbstractShopEntity extends BlockEntity {
 
         @Override
         public boolean stillValid(Player player) {
-            return player.getUUID().compareTo(reciever_UUID) == 0;
+            return player.getUUID().equals(reciever_UUID)
+                    && level != null
+                    && player.level() == level
+                    && !AbstractShopEntity.this.isRemoved()
+                    && level.getBlockEntity(worldPosition) == AbstractShopEntity.this
+                    && player.distanceToSqr(worldPosition.getCenter()) <= 64.0;
         }
 
         public Item getPaymentType() {

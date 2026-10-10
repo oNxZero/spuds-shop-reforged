@@ -314,7 +314,17 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
     }
 
     private void createShopInvSlot(int slotIndex, int x, int y) {
-        TogglableSlot slot = new TogglableSlot(shopInventory, slotIndex, x, y);
+        TogglableSlot slot = new TogglableSlot(shopInventory, slotIndex, x, y) {
+            @Override
+            public boolean mayPickup(Player player) {
+                return perms.canTakeItems();
+            }
+
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return perms.canImportStock();
+            }
+        };
         tabSellerSlots.add(slot);
         addSlot(slot);
     }
@@ -337,8 +347,32 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
 
     @Override
     public void clicked(int slotId, int button, ClickType clickType, Player player) {
+        if (!stillValid(player)) {
+            return;
+        }
         if (slotId >= 0 && slotId < this.slots.size()) {
             Slot slot = this.slots.get(slotId);
+            // Trade templates are not inventory. Handle editing explicitly so
+            // sorters and vanilla transfer actions cannot extract ghost items.
+            if (slot instanceof shop_trade_slot) {
+                if (activeTab == SELLER_TAB && perms.canEditTrades()
+                        && clickType == ClickType.PICKUP && (button == 0 || button == 1)) {
+                    ItemStack carried = getCarried();
+                    if (carried.isEmpty()) {
+                        int count = slot.getItem().getCount();
+                        shopInventory.removeItem(slot.getSlotIndex(), button == 0 ? count : (count + 1) / 2);
+                    } else {
+                        ((shop_trade_slot) slot).safeInsert(carried, button == 0 ? carried.getCount() : 1);
+                    }
+                    slot.setChanged();
+                }
+                return;
+            }
+            // Contract slots are generated from permission records; vanilla swaps
+            // replace slots without calling removeItem and would copy the scroll.
+            if (slot instanceof contract_slot && clickType == ClickType.SWAP) {
+                return;
+            }
             // In Owner menu, customer slots are only active in CUSTOMER_TAB.
             // If activeTab is CUSTOMER_TAB, we apply the same restriction as Customer menu:
             // no taking, just trading.
@@ -348,18 +382,16 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
                             // here?
                 }
                 if (slot instanceof shop_vendor_slot) {
+                    if (clickType == ClickType.QUICK_MOVE) {
+                        quickMoveStack(player, slotId);
+                        return;
+                    }
                     if (clickType == ClickType.PICKUP) {
                         if (shopInventory.canTrade(player)) {
                             trade();
                         }
                     }
                     return; // Prevent other interactions
-                }
-            } else if (activeTab == SELLER_TAB) {
-                if (slot instanceof shop_trade_slot) {
-                    if (clickType == ClickType.SWAP) {
-                        return; // Prevent swapping ghost items into hotbar
-                    }
                 }
             }
         }
@@ -368,15 +400,21 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int invSlot) {
+        if (!stillValid(player) || invSlot < 0 || invSlot >= slots.size()) {
+            return ItemStack.EMPTY;
+        }
         if (activeTab == CUSTOMER_TAB) {
+            if (!(slots.get(invSlot) instanceof shop_vendor_slot)) {
+                return ItemStack.EMPTY;
+            }
             int tradeCount = 0;
-            while (tradeCount < 64 & shopInventory.canTrade(player)) {
+            while (tradeCount < 64 && shopInventory.canTrade(player)) {
                 shopInventory.trade(playerInventory);
                 tradeCount++;
             }
             return ItemStack.EMPTY;
         }
-        if (activeTab != SELLER_TAB) {
+        if (activeTab != SELLER_TAB || !slots.get(invSlot).mayPickup(player)) {
             return ItemStack.EMPTY;
         }
 
@@ -403,7 +441,7 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (!this.moveItemStackTo(originalStack, 0, 35, false)) {
+            if (!this.moveItemStackTo(originalStack, 0, 36, false)) {
                 return ItemStack.EMPTY;
             }
         }
@@ -414,6 +452,15 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
             slot.setChanged();
         }
 
+        if (originalStack.getCount() == newStack.getCount()) {
+            return ItemStack.EMPTY;
+        }
+        slot.onTake(player, originalStack);
+        // Rapid transfer mods can queue clicks before predicted slot changes
+        // settle. Refresh all slots from the server after a completed transfer.
+        if (!player.level().isClientSide()) {
+            broadcastFullState();
+        }
         return newStack;
     }
 
@@ -498,8 +545,6 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
             if (contract_delegate.belongsToInteractor(this.getItem())) {
                 if (warningActivator != null) {
                     warningActivator.openWarnScreen();
-                } else {
-                    throw new IllegalStateException("[Spud's Shops] Warning activator not initialised");
                 }
                 return ItemStack.EMPTY;
             }
@@ -511,8 +556,6 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
             if (contract_delegate.belongsToInteractor(this.getItem())) {
                 if (warningActivator != null) {
                     warningActivator.openWarnScreen();
-                } else {
-                    throw new IllegalStateException("[Spud's Shops] Warning activator not initialised");
                 }
                 return Optional.empty();
             }
@@ -556,21 +599,12 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
 
         @Override
         public boolean mayPlace(ItemStack stack) {
-            if (stack.getItem() != this.getItem().getItem()) {
-                this.set(ItemStack.EMPTY);
-            }
-            else if (ItemStack.isSameItemSameComponents(stack, this.getItem())){
-                return true;
-            }
-            else{
-                this.set(ItemStack.EMPTY);
-            }
             return false;
         }
 
         @Override
         public boolean mayPickup(@NotNull Player pPlayer) {
-            return perms.canEditTrades();
+            return false;
         }
 
         @Override
@@ -591,9 +625,12 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
         @NotNull
         @Override
         public ItemStack safeInsert(ItemStack stack, int count) {
+            if (!perms.canEditTrades() || activeTab != SELLER_TAB || stack.isEmpty()) {
+                return stack;
+            }
             ItemStack oldStack = this.getItem();
 
-            if (stack.getItem() == oldStack.getItem()) {
+            if (ItemStack.isSameItemSameComponents(stack, oldStack)) {
                 count += oldStack.getCount();
                 if (count > 64)
                     count = 64;

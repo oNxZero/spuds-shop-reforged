@@ -15,6 +15,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.InterModComms;
+import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
@@ -38,6 +40,7 @@ public class SpudaciousShops {
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::enqueueCompatibility);
 
         ModBlockTags.initialise();
         ModProperties.registerModProperties();
@@ -59,9 +62,16 @@ public class SpudaciousShops {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
+    private void enqueueCompatibility(final InterModEnqueueEvent event) {
+        InterModComms.sendTo("invtweaks", "blacklist-screen",
+                () -> "net.lucab.shops.screen.ShopScreenOwner");
+        InterModComms.sendTo("invtweaks", "blacklist-screen",
+                () -> "net.lucab.shops.screen.ShopScreenCustomer");
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
-        LOGGER.info("SETTING UP SPUD'S SHOPS...");
+        LOGGER.info("SETTING UP SPUDS SHOP REFORGED...");
 
         postRegistryTasks.forEach(Runnable::run);
         PostRegAssigner.runAllAssigners();

@@ -22,6 +22,11 @@ build
 eclipse
 run
 runs
+logs/
+config/
+crash-reports/
+.env
+.env.*
 
 # Files from Forge MDK
 forge*changelog.txt

@@ -4,17 +4,37 @@ import com.electronwill.nightconfig.core.file.FileConfig;
 
 import net.lucab.shops.screen.ToggleButtonID;
 
-import static net.lucab.shops.SpudaciousShops.MOD_ID;
+import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.EnumMap;
 
 public class ConfigHandler {
-    private static final File CONFIG_PATH = new File("config/"+MOD_ID+".toml");
+    private static final File CONFIG_PATH = prepareConfigPath();
     public static FileConfig config;
 
 
     private static final EnumMap<ToggleButtonID, Boolean> toggleSettingsStates = getDefaultToggleSettingStates();
+
+    private static File prepareConfigPath() {
+        Path directory = FMLPaths.CONFIGDIR.get();
+        Path destination = directory.resolve("spuds_shop_reforged.toml");
+        Path legacy = directory.resolve("spudaciousshops.toml");
+        try {
+            Files.createDirectories(directory);
+            // Preserve existing settings on upgrade without overwriting a new config.
+            if (!Files.exists(destination) && Files.isRegularFile(legacy)) {
+                Files.copy(legacy, destination);
+            }
+        } catch (IOException exception) {
+            throw new UncheckedIOException("Could not prepare Spuds Shop Reforged config", exception);
+        }
+        return destination.toFile();
+    }
 
 
     private static EnumMap<ToggleButtonID, Boolean> getDefaultToggleSettingStates() {
