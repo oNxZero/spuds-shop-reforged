@@ -31,7 +31,7 @@ public record ShopTabSyncPkt(int tab) implements CustomPacketPayload {
                 screenHandler.updateTabSelectionServerside(tab);
 
                 // Send response back to client
-                player.connection.send(new ClientboundCustomPayloadPacket(new ShopTabSyncResponsePkt(tab)));
+                player.connection.send(new ClientboundCustomPayloadPacket(new ShopTabSyncResponsePkt(screenHandler.getActiveTab())));
             }
         });
     }

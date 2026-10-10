@@ -86,7 +86,7 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
     private final List<TogglableSlot> tabSellerSlots = new ArrayList<>();
     final List<TogglableSlot> tabSettingsSlots = new ArrayList<>();
     private final List<TogglableSlot> tabCustomerSlots = new ArrayList<>();
-    private widgetCollection widgets;
+    private widgetCollection widgets = value -> {};
 
     interface widgetCollection {
         void setToVal(boolean value);
@@ -236,7 +236,12 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
     }
 
     public void updateTabSelectionServerside(int tab) {
+        if (tab < SELLER_TAB || tab > WARNING_TAB || !stillValid(playerInventory.player)) {
+            return;
+        }
         activeTab = tab;
+        updateTabSelection();
+        broadcastFullState();
     }
 
     public boolean toggleButtonServersideUpdate(ToggleButtonID button, boolean state) {
@@ -376,6 +381,9 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
         }
         if (slotId >= 0 && slotId < this.slots.size()) {
             Slot slot = this.slots.get(slotId);
+            if (!slot.isActive()) {
+                return;
+            }
             // Trade templates are not inventory. Handle editing explicitly so
             // sorters and vanilla transfer actions cannot extract ghost items.
             if (slot instanceof shop_trade_slot) {
@@ -425,6 +433,9 @@ public class ShopScreenHandlerOwner extends AbstractContainerMenu {
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int invSlot) {
         if (!stillValid(player) || invSlot < 0 || invSlot >= slots.size()) {
+            return ItemStack.EMPTY;
+        }
+        if (!slots.get(invSlot).isActive()) {
             return ItemStack.EMPTY;
         }
         if (activeTab == CUSTOMER_TAB) {

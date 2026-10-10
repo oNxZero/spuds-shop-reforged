@@ -16,7 +16,7 @@ public record ToggleSyncResponsePkt(ToggleButtonID buttonID, boolean state) impl
             SpudaciousShops.id("toggle_sync_response"));
 
     public static final StreamCodec<ByteBuf, ToggleSyncResponsePkt> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT.map(i -> ToggleButtonID.values()[i], ToggleButtonID::ordinal),
+            ToggleButtonID.STREAM_CODEC,
             ToggleSyncResponsePkt::buttonID,
             ByteBufCodecs.BOOL, ToggleSyncResponsePkt::state,
             ToggleSyncResponsePkt::new);

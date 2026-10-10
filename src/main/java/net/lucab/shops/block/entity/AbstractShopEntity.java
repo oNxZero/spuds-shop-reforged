@@ -157,8 +157,12 @@ public abstract class AbstractShopEntity extends BlockEntity {
         }
 
         @Override
-        public ItemStack removeItemNoUpdate(int pSlot) {
-            return null;
+        public @NotNull ItemStack removeItemNoUpdate(int slot) {
+            // Trade templates are ghost items and must never be extracted.
+            if (slot < 0 || slot >= PAYMENT_SLOT || !permissions.canTakeItems()) {
+                return ItemStack.EMPTY;
+            }
+            return inventory.set(slot, ItemStack.EMPTY);
         }
 
         @Override
@@ -171,7 +175,7 @@ public abstract class AbstractShopEntity extends BlockEntity {
 
         @Override
         public @NotNull ItemStack getItem(int slot) {
-            if (slot > this.getContainerSize() || slot < 0)
+            if (slot >= this.getContainerSize() || slot < 0)
                 return ItemStack.EMPTY;
 
             if (slot > PROFIT_END) {
@@ -309,7 +313,7 @@ public abstract class AbstractShopEntity extends BlockEntity {
         @Override
         public @NotNull ItemStack removeItem(int slot, int amount) {
 
-            if (slot > this.getContainerSize() || slot < 0)
+            if (slot >= this.getContainerSize() || slot < 0)
                 return ItemStack.EMPTY;
 
             if (slot < PAYMENT_SLOT) {
@@ -324,6 +328,9 @@ public abstract class AbstractShopEntity extends BlockEntity {
 
         @Override
         public void setItem(int slot, ItemStack stack) {
+            if (slot < 0 || slot >= getContainerSize()) {
+                return;
+            }
             if (slot >= PAYMENT_SLOT) {
                 if (this.permissions.canEditTrades()) {
                     inventory.set(slot, stack);
@@ -554,8 +561,9 @@ public abstract class AbstractShopEntity extends BlockEntity {
         }
 
         @Override
-        public ItemStack removeItemNoUpdate(int pSlot) {
-            return null;
+        public @NotNull ItemStack removeItemNoUpdate(int slot) {
+            // Contracts represent permission records; remove the record too.
+            return removeItem(slot);
         }
 
         public ItemStack removeItem(int index) {

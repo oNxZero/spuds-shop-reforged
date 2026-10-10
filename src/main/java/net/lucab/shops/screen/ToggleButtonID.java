@@ -6,6 +6,17 @@ public enum ToggleButtonID {
     IgnoreNBTToggle("iNBT"),
     EffectsToggle("Efex");
 
+    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, ToggleButtonID> STREAM_CODEC =
+            net.minecraft.network.codec.ByteBufCodecs.INT.map(ToggleButtonID::fromNetworkId, ToggleButtonID::ordinal);
+
+    private static ToggleButtonID fromNetworkId(int id) {
+        ToggleButtonID[] buttons = values();
+        if (id < 0 || id >= buttons.length) {
+            throw new io.netty.handler.codec.DecoderException("Invalid shop toggle ID: " + id);
+        }
+        return buttons[id];
+    }
+
     private final String serialised;
 
     ToggleButtonID(String s) {

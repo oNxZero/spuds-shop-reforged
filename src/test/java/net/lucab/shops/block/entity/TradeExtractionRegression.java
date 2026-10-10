@@ -15,6 +15,7 @@ public final class TradeExtractionRegression {
     public static void main(String[] args) {
         SharedConstants.tryDetectVersion();
         Bootstrap.bootStrap();
+        checkTogglePackets();
         check(Items.ENDER_PEARL, 48, 16, 16, 16);
         check(Items.DIAMOND_SWORD, 4, 1, 1, 1, 1);
         check(Items.DIAMOND, 64, 10, 20, 34);
@@ -109,6 +110,47 @@ public final class TradeExtractionRegression {
         require(shop.paymentRegisterFull(), "partial register capacity must block purchases");
         shop.get(ShopInventory.PROFIT_END).setCount(62);
         require(!shop.paymentRegisterFull(), "exact register capacity must allow purchases");
+    }
+
+    private static void checkTogglePackets() {
+        for (var id : net.lucab.shops.screen.ToggleButtonID.values()) {
+            var buffer = io.netty.buffer.Unpooled.buffer();
+            try {
+                var request = new net.lucab.shops.screen.networking.ToggleSyncPkt(id, true);
+                net.lucab.shops.screen.networking.ToggleSyncPkt.STREAM_CODEC.encode(buffer, request);
+                require(request.equals(net.lucab.shops.screen.networking.ToggleSyncPkt.STREAM_CODEC.decode(buffer)),
+                        "toggle request round trip");
+                buffer.clear();
+                var response = new net.lucab.shops.screen.networking.ToggleSyncResponsePkt(id, false);
+                net.lucab.shops.screen.networking.ToggleSyncResponsePkt.STREAM_CODEC.encode(buffer, response);
+                require(response.equals(net.lucab.shops.screen.networking.ToggleSyncResponsePkt.STREAM_CODEC.decode(buffer)),
+                        "toggle response round trip");
+            } finally {
+                buffer.release();
+            }
+        }
+        for (int id : new int[] {-1, net.lucab.shops.screen.ToggleButtonID.values().length,
+                Integer.MIN_VALUE, Integer.MAX_VALUE}) {
+            for (boolean response : new boolean[] {false, true}) {
+                var buffer = io.netty.buffer.Unpooled.buffer();
+                try {
+                    buffer.writeInt(id).writeBoolean(true);
+                    boolean rejected = false;
+                    try {
+                        if (response) {
+                            net.lucab.shops.screen.networking.ToggleSyncResponsePkt.STREAM_CODEC.decode(buffer);
+                        } else {
+                            net.lucab.shops.screen.networking.ToggleSyncPkt.STREAM_CODEC.decode(buffer);
+                        }
+                    } catch (io.netty.handler.codec.DecoderException expected) {
+                        rejected = true;
+                    }
+                    require(rejected, "invalid toggle ID must be rejected: " + id);
+                } finally {
+                    buffer.release();
+                }
+            }
+        }
     }
 
     private static void check(Item item, int requested, int... counts) {

@@ -17,7 +17,7 @@ public record ToggleSyncPkt(ToggleButtonID buttonID, boolean state) implements C
             SpudaciousShops.id("toggle_sync"));
 
     public static final StreamCodec<ByteBuf, ToggleSyncPkt> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT.map(i -> ToggleButtonID.values()[i], ToggleButtonID::ordinal), ToggleSyncPkt::buttonID,
+            ToggleButtonID.STREAM_CODEC, ToggleSyncPkt::buttonID,
             ByteBufCodecs.BOOL, ToggleSyncPkt::state,
             ToggleSyncPkt::new);
 
